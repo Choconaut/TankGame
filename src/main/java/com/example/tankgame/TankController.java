@@ -3,7 +3,7 @@ package com.example.tankgame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class HelloController {
+public class TankController {
     @FXML
     private Label welcomeText;
 
