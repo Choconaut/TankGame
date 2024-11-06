@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class ResourceManager {
     private static ResourceManager instance;
-    private Map<String, Image> imageCache = new HashMap<>();
+    private final Map<String, Image> imageCache = new HashMap<>();
 
     private ResourceManager() {}
 

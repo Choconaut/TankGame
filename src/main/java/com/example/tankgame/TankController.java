@@ -1,14 +1,38 @@
 package com.example.tankgame;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import com.example.tankgame.direction.Down;
+import com.example.tankgame.direction.Left;
+import com.example.tankgame.direction.Right;
+import com.example.tankgame.direction.Up;
+import javafx.scene.Scene;
+import com.example.tankgame.tank.PlayerTank;
 
 public class TankController {
-    @FXML
-    private Label welcomeText;
 
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+    public TankController(Scene scene, PlayerTank playerTank) {
+        scene.setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case UP:
+                    playerTank.setState(new Up());
+                    playerTank.move();
+                    break;
+                case DOWN:
+                    playerTank.setState(new Down());
+                    playerTank.move();
+                    break;
+                case LEFT:
+                    playerTank.setState(new Left());
+                    playerTank.move();
+                    break;
+                case RIGHT:
+                    playerTank.setState(new Right());
+                    playerTank.move();
+                    break;
+                case SPACE:
+                    playerTank.fire();
+                    break;
+            }
+        });
     }
+
 }

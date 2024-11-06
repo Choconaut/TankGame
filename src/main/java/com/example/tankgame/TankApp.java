@@ -5,10 +5,6 @@ import com.example.tankgame.tank.EnemyTank;
 import com.example.tankgame.tank.EnemyTankAI;
 import com.example.tankgame.tank.PlayerTank;
 import com.example.tankgame.tank.TankRenderer;
-import com.example.tankgame.direction.Down;
-import com.example.tankgame.direction.Left;
-import com.example.tankgame.direction.Right;
-import com.example.tankgame.direction.Up;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -51,33 +47,7 @@ public class TankApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Input handling
-        //TODO: Implement this into a separate class,
-        scene.setOnKeyPressed(event -> {
-            switch (event.getCode()) {
-                case UP:
-                    playerTank.setState(new Up());
-                    playerTank.move();
-                    break;
-                case DOWN:
-                    playerTank.setState(new Down());
-                    playerTank.move();
-                    break;
-                case LEFT:
-                    playerTank.setState(new Left());
-                    playerTank.move();
-                    break;
-                case RIGHT:
-                    playerTank.setState(new Right());
-                    playerTank.move();
-                    break;
-                case SPACE:
-                    playerTank.fire();
-                    break;
-                default:
-                    break;
-            }
-        });
+        TankController tankController = new TankController(scene, playerTank);
 
         // Game loop to update game logic and rendering
         AnimationTimer gameLoop = new AnimationTimer() {

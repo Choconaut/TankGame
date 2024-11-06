@@ -4,8 +4,8 @@ import com.example.tankgame.ResourceManager;
 import javafx.scene.image.ImageView;
 
 public class MissileRenderer {
-    private Missile missile;
-    private ImageView imageView;
+    private final Missile missile;
+    private final ImageView imageView;
 
     public MissileRenderer(Missile missile) {
         this.missile = missile;

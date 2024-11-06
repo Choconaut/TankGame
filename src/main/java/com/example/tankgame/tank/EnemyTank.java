@@ -6,7 +6,7 @@ import com.example.tankgame.missile.MissileFactory;
 import com.example.tankgame.missile.MissileManager;
 
 public class EnemyTank extends Tank {
-    private MissileManager missileManager;
+    private final MissileManager missileManager;
 
     public EnemyTank(double x, double y, MissileManager missileManager) {
         super(x, y);

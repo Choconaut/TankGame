@@ -7,8 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MissileManager {
-    private List<MissileRenderer> missiles = new ArrayList<>();
-    private Group root;
+    private final List<MissileRenderer> missiles = new ArrayList<>();
+    private final Group root;
 
     public MissileManager(Group root) {
         this.root = root;

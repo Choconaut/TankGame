@@ -6,8 +6,7 @@ import com.example.tankgame.missile.MissileFactory;
 import com.example.tankgame.missile.MissileManager;
 
 public class PlayerTank extends Tank {
-    private MissileManager missileManager;
-    private int shootInterval = 500;
+    private final MissileManager missileManager;
     private long lastMoveTime = System.currentTimeMillis();
 
     public PlayerTank(double x, double y, MissileManager missileManager) {
@@ -22,6 +21,7 @@ public class PlayerTank extends Tank {
     }
 
     public void fire() {
+        int shootInterval = 500;
         if (System.currentTimeMillis() - lastMoveTime >= shootInterval) {
             lastMoveTime = System.currentTimeMillis();
             Missile missile = MissileFactory.createMissile(this.getX() + 20, this.getY() + 23, this.getState());

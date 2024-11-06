@@ -8,10 +8,10 @@ import com.example.tankgame.direction.Up;
 public class EnemyTankAI {
     private final EnemyTank enemyTank;
     private final PlayerTank playerTank;
-    private long lastMoveTime = System.currentTimeMillis();
-    private long lastFireTime = System.currentTimeMillis();
+    private long lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 200); // Randomize the first move time
+    private long lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 3000); // Randomize the first fire time
     private final int moveInterval = 500 + (int)(Math.random() * 500); // Move every 500-1000ms
-    private final int shootInterval = 3000 + (int)(Math.random() * 2000); // Shoot every 3000-5000ms
+    private final int shootInterval = 5000 + (int)(Math.random() * 3000); // Shoot every 5000-8000ms
 
     public EnemyTankAI(EnemyTank enemyTank, PlayerTank playerTank) {
         this.enemyTank = enemyTank;
