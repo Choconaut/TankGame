@@ -1,4 +1,4 @@
-package com.example.tankgame.tank.directions;
+package com.example.tankgame.direction;
 
 import com.example.tankgame.tank.Tank;
 import com.example.tankgame.tank.TankDirection;

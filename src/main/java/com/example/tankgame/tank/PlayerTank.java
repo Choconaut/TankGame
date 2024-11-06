@@ -1,6 +1,6 @@
 package com.example.tankgame.tank;
 
-import com.example.tankgame.tank.directions.Up;
+import com.example.tankgame.direction.Up;
 
 public class PlayerTank extends Tank {
 

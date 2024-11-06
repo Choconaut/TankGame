@@ -1,11 +1,13 @@
 package com.example.tankgame;
 
+import com.example.tankgame.tank.EnemyTank;
+import com.example.tankgame.tank.EnemyTankAI;
 import com.example.tankgame.tank.PlayerTank;
 import com.example.tankgame.tank.TankRenderer;
-import com.example.tankgame.tank.directions.Down;
-import com.example.tankgame.tank.directions.Left;
-import com.example.tankgame.tank.directions.Right;
-import com.example.tankgame.tank.directions.Up;
+import com.example.tankgame.direction.Down;
+import com.example.tankgame.direction.Left;
+import com.example.tankgame.direction.Right;
+import com.example.tankgame.direction.Up;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -14,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class TankGame extends Application {
+public class TankApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -26,14 +28,20 @@ public class TankGame extends Application {
         PlayerTank playerTank = new PlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25);
         TankRenderer playerTankRenderer = new TankRenderer(playerTank);
 
+        EnemyTank enemyTank = new EnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25);
+        TankRenderer enemyTankRenderer = new TankRenderer(enemyTank);
+
+        EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
+
         root.getChildren().add(playerTankRenderer.getImageView());
+        root.getChildren().add(enemyTankRenderer.getImageView());
 
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Tank Game");
         primaryStage.show();
 
         // Input handling
-        //TODO: Implement this into a separate class, stragetgy pattern
+        //TODO: Implement this into a separate class,
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP:
@@ -70,6 +78,9 @@ public class TankGame extends Application {
             public void handle(long now) {
                 playerTank.update();
                 playerTankRenderer.update();
+                enemyTank.update();
+                enemyTankRenderer.update();
+                enemyTankAI.update();
             }
         };
         gameLoop.start();

@@ -6,6 +6,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class TankRenderer {
     private Tank tank;
     private ImageView imageView;
@@ -24,7 +26,7 @@ public class TankRenderer {
 
     private void updateImage() {
         String imagePath = tank.getState().getImagePath();
-        Image image = new Image(getClass().getResourceAsStream(imagePath));
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         imageView.setImage(image);
     }
 

@@ -1,17 +1,16 @@
-package com.example.tankgame.tank.directions;
+package com.example.tankgame.direction;
 
 import com.example.tankgame.tank.Tank;
 import com.example.tankgame.tank.TankDirection;
 
-public class Down implements TankDirection {
-
+public class Right implements TankDirection {
     @Override
     public void move(Tank tank) {
-        tank.setY(tank.getY() + tank.getSpeed());
+        tank.setX(tank.getX() + tank.getSpeed());
     }
 
     @Override
     public String getImagePath() {
-        return "/com/example/tankgame/images/tankD.gif";
+        return "/com/example/tankgame/images/tankR.gif";
     }
 }
