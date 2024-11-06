@@ -37,4 +37,6 @@ public abstract class Tank extends GameObject {
     }
 
     public int getHealth() { return health; }
+
+    public void setHealth(int health) { this.health = health; }
 }

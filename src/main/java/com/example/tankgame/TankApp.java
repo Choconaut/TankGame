@@ -1,6 +1,8 @@
 package com.example.tankgame;
 
 import com.example.tankgame.missile.MissileManager;
+import com.example.tankgame.powerups.MedPack;
+import com.example.tankgame.powerups.PowerUpRenderer;
 import com.example.tankgame.tank.EnemyTank;
 import com.example.tankgame.tank.EnemyTankAI;
 import com.example.tankgame.tank.PlayerTank;
@@ -37,6 +39,10 @@ public class TankApp extends Application {
         EnemyTank enemyTank2 = new EnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
         TankRenderer enemyTankRenderer2 = new TankRenderer(enemyTank2);
         EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
+
+        MedPack medPack = new MedPack(100, 100);
+        PowerUpRenderer medPackRenderer = new PowerUpRenderer(medPack);
+        root.getChildren().add(medPackRenderer.getImageView());
 
         root.getChildren().add(playerTankRenderer.getImageView());
         root.getChildren().add(enemyTankRenderer.getImageView());
