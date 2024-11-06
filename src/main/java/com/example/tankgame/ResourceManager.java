@@ -4,6 +4,7 @@ import javafx.scene.image.Image;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ResourceManager {
     private static ResourceManager instance;
@@ -20,7 +21,7 @@ public class ResourceManager {
 
     public Image getImage(String path) {
         if (!imageCache.containsKey(path)) {
-            imageCache.put(path, new Image(path));
+            imageCache.put(path, new Image(Objects.requireNonNull(getClass().getResourceAsStream(path))));
         }
         return imageCache.get(path);
     }

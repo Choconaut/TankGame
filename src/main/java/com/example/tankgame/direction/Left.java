@@ -1,17 +1,22 @@
 package com.example.tankgame.direction;
 
+import com.example.tankgame.GameObject;
+import com.example.tankgame.missile.Missile;
 import com.example.tankgame.tank.Tank;
-import com.example.tankgame.tank.TankDirection;
 
-public class Left implements TankDirection {
+public class Left implements Direction {
 
     @Override
-    public void move(Tank tank) {
-        tank.setX(tank.getX() - tank.getSpeed());
+    public void move(GameObject object, double speed) {
+        object.setX(object.getX() - speed);
     }
 
     @Override
-    public String getImagePath() {
-        return "/com/example/tankgame/images/tankL.gif";
+    public String getImagePath(GameObject object) {
+        if(object instanceof Tank)
+            return "/com/example/tankgame/images/tankL.gif";
+        else if (object instanceof Missile)
+            return "/com/example/tankgame/images/missileL.gif";
+        return null;
     }
 }

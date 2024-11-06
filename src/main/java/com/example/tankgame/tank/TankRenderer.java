@@ -3,9 +3,6 @@ package com.example.tankgame.tank;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-
 import java.util.Objects;
 
 public class TankRenderer {
@@ -25,7 +22,7 @@ public class TankRenderer {
     }
 
     private void updateImage() {
-        String imagePath = tank.getState().getImagePath();
+        String imagePath = tank.getState().getImagePath(tank);
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
         imageView.setImage(image);
     }

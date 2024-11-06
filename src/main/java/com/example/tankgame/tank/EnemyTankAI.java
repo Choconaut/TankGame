@@ -6,10 +6,12 @@ import com.example.tankgame.direction.Right;
 import com.example.tankgame.direction.Up;
 
 public class EnemyTankAI {
-    private EnemyTank enemyTank;
-    private PlayerTank playerTank;
+    private final EnemyTank enemyTank;
+    private final PlayerTank playerTank;
     private long lastMoveTime = System.currentTimeMillis();
-    private int moveInterval = 500; // Move every 500ms
+    private long lastFireTime = System.currentTimeMillis();
+    private final int moveInterval = 500 + (int)(Math.random() * 500); // Move every 500-1000ms
+    private final int shootInterval = 3000 + (int)(Math.random() * 2000); // Shoot every 3000-5000ms
 
     public EnemyTankAI(EnemyTank enemyTank, PlayerTank playerTank) {
         this.enemyTank = enemyTank;
@@ -42,6 +44,19 @@ public class EnemyTankAI {
             }
 
             enemyTank.move();
+        }
+
+        // Shoot at the player every shootInterval
+        if (System.currentTimeMillis() - lastFireTime >= shootInterval) {
+            double tolerance = 50.0; // Allow a bit of tolerance for firing
+            if (Math.abs(enemyTank.getX() - playerTank.getX()) < tolerance ||
+                    Math.abs(enemyTank.getY() - playerTank.getY()) < tolerance) {
+                if (Math.random() < 0.5) { // 50% chance to fire
+                    lastFireTime = System.currentTimeMillis();
+                    enemyTank.fire();
+                }
+            }
+
         }
     }
 }
