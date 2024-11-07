@@ -1,5 +1,6 @@
 package com.example.tankgame.missile;
 
+import com.example.tankgame.GameObjectRenderer;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
@@ -7,7 +8,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MissileManager {
-    private final List<MissileRenderer> missiles = new ArrayList<>();
+    private final List<GameObjectRenderer> missiles = new ArrayList<>();
     private final Group root;
 
     public MissileManager(Group root) {
@@ -15,18 +16,22 @@ public class MissileManager {
     }
 
     public void addMissile(Missile missile) {
-        MissileRenderer missileRenderer = new MissileRenderer(missile);
+        GameObjectRenderer missileRenderer = new GameObjectRenderer(missile);
         missiles.add(missileRenderer);
         root.getChildren().add(missileRenderer.getImageView());
     }
 
     public void update(double screenWidth, double screenHeight) {
-        Iterator<MissileRenderer> iterator = missiles.iterator();
+        Iterator<GameObjectRenderer> iterator = missiles.iterator();
         while (iterator.hasNext()) {
-            MissileRenderer missileRenderer = iterator.next();
+            GameObjectRenderer missileRenderer = iterator.next();
+            Missile missile = (Missile) missileRenderer.getGameObject();
+
+            missile.move();
+
             missileRenderer.update();
 
-            if (missileRenderer.getMissile().isOutOfBounds(screenWidth, screenHeight)) {
+            if (missile.isOutOfBounds(screenWidth, screenHeight)) {
                 root.getChildren().remove(missileRenderer.getImageView());
                 iterator.remove();
             }

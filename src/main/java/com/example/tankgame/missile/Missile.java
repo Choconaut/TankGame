@@ -16,7 +16,7 @@ public abstract class Missile extends GameObject {
 
     @Override
     public void update() {
-        move();
+        this.move();
         // Other missile-specific logic
     }
 
@@ -36,6 +36,11 @@ public abstract class Missile extends GameObject {
 
     public int getDamage() {
         return damage;
+    }
+
+    @Override
+    public String getImagePath() {
+        return this.getState().getImagePath(this);
     }
 
     public boolean isOutOfBounds(double screenWidth, double screenHeight) {

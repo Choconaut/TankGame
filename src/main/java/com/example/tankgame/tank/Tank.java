@@ -15,11 +15,6 @@ public abstract class Tank extends GameObject {
         this.speed = 5.0;
     }
 
-    @Override
-    public void update() {
-        // Other tank-specific logic
-    }
-
     public void move() {
         state.move(this, speed);
     }
@@ -39,4 +34,9 @@ public abstract class Tank extends GameObject {
     public int getHealth() { return health; }
 
     public void setHealth(int health) { this.health = health; }
+
+    @Override
+    public String getImagePath() {
+        return this.getState().getImagePath(this);
+    }
 }

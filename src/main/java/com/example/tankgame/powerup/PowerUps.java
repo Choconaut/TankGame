@@ -1,4 +1,4 @@
-package com.example.tankgame.powerups;
+package com.example.tankgame.powerup;
 
 import com.example.tankgame.GameObject;
 

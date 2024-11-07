@@ -1,12 +1,8 @@
 package com.example.tankgame;
 
 import com.example.tankgame.missile.MissileManager;
-import com.example.tankgame.powerups.MedPack;
-import com.example.tankgame.powerups.PowerUpRenderer;
-import com.example.tankgame.tank.EnemyTank;
-import com.example.tankgame.tank.EnemyTankAI;
-import com.example.tankgame.tank.PlayerTank;
-import com.example.tankgame.tank.TankRenderer;
+import com.example.tankgame.powerup.MedPack;
+import com.example.tankgame.tank.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
@@ -29,24 +25,47 @@ public class TankApp extends Application {
 
         MissileManager missileManager = new MissileManager(root);
 
-        PlayerTank playerTank = new PlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25, missileManager);
-        TankRenderer playerTankRenderer = new TankRenderer(playerTank);
+        GameObjectFactory gameObjectFactory = new GameObjectFactory(root);
 
-        EnemyTank enemyTank = new EnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25, missileManager);
-        TankRenderer enemyTankRenderer = new TankRenderer(enemyTank);
+        PlayerTank playerTank = gameObjectFactory.createPlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25, missileManager);
+        EnemyTank enemyTank = gameObjectFactory.createEnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25, missileManager);
+        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
+        MedPack medPack = gameObjectFactory.createMedPack(100, 100);
         EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
-
-        EnemyTank enemyTank2 = new EnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
-        TankRenderer enemyTankRenderer2 = new TankRenderer(enemyTank2);
         EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
 
-        MedPack medPack = new MedPack(100, 100);
-        PowerUpRenderer medPackRenderer = new PowerUpRenderer(medPack);
-        root.getChildren().add(medPackRenderer.getImageView());
+        //Create Renderers
+        GameObjectRenderer playerTankRenderer = new GameObjectRenderer(playerTank);
+        GameObjectRenderer enemyTankRenderer = new GameObjectRenderer(enemyTank);
+        GameObjectRenderer enemyTankRenderer2 = new GameObjectRenderer(enemyTank2);
+        GameObjectRenderer medPackRenderer = new GameObjectRenderer(medPack);
 
-        root.getChildren().add(playerTankRenderer.getImageView());
-        root.getChildren().add(enemyTankRenderer.getImageView());
-        root.getChildren().add(enemyTankRenderer2.getImageView());
+        root.getChildren().addAll(
+          playerTankRenderer.getImageView(),
+          enemyTankRenderer.getImageView(),
+          enemyTankRenderer2.getImageView(),
+          medPackRenderer.getImageView()
+        );
+
+
+//        PlayerTank playerTank = new PlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25, missileManager);
+//        TankRenderer playerTankRenderer = new TankRenderer(playerTank);
+//
+//        EnemyTank enemyTank = new EnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25, missileManager);
+//        TankRenderer enemyTankRenderer = new TankRenderer(enemyTank);
+//        EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
+//
+//        EnemyTank enemyTank2 = new EnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
+//        TankRenderer enemyTankRenderer2 = new TankRenderer(enemyTank2);
+//        EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
+
+//        MedPack medPack = new MedPack(100, 100);
+//        PowerUpRenderer medPackRenderer = new PowerUpRenderer(medPack);
+//        root.getChildren().add(medPackRenderer.getImageView());
+
+//        root.getChildren().add(playerTankRenderer.getImageView());
+//        root.getChildren().add(enemyTankRenderer.getImageView());
+//        root.getChildren().add(enemyTankRenderer2.getImageView());
 
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Tank Game");
@@ -69,6 +88,8 @@ public class TankApp extends Application {
                 enemyTank2.update();
                 enemyTankRenderer2.update();
                 enemyTankAI2.update();
+
+                medPack.update();
 
                 missileManager.update(screenBounds.getWidth(), screenBounds.getHeight());
             }

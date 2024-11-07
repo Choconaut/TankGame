@@ -1,8 +1,8 @@
 package com.example.tankgame.tank;
 
+import com.example.tankgame.GameObjectFactory;
 import com.example.tankgame.direction.Down;
 import com.example.tankgame.missile.Missile;
-import com.example.tankgame.missile.MissileFactory;
 import com.example.tankgame.missile.MissileManager;
 
 public class EnemyTank extends Tank {
@@ -21,7 +21,7 @@ public class EnemyTank extends Tank {
     }
 
     public void fire() {
-        Missile missile = MissileFactory.createMissile(this.getX() + 20, this.getY() + 23, this.getState());
+        Missile missile = GameObjectFactory.createBasicMissile(this.getX() + 20, this.getY() + 23, this.getState());
         missileManager.addMissile(missile);
     }
 }

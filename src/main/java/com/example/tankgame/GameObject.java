@@ -19,6 +19,8 @@ public abstract class GameObject {
 
     public void setY(double y) { this.y = y; }
 
+    public abstract String getImagePath();
+
     public void checkCollision(GameObject otherObject) {
 
     }

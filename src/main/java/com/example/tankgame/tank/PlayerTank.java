@@ -2,8 +2,8 @@ package com.example.tankgame.tank;
 
 import com.example.tankgame.direction.Up;
 import com.example.tankgame.missile.Missile;
-import com.example.tankgame.missile.MissileFactory;
 import com.example.tankgame.missile.MissileManager;
+import com.example.tankgame.GameObjectFactory;
 
 public class PlayerTank extends Tank {
     private final MissileManager missileManager;
@@ -17,14 +17,14 @@ public class PlayerTank extends Tank {
 
     @Override
     public void update() {
-        // Player-specific logic if needed
+        // Explosion, then You Died
     }
 
     public void fire() {
         int shootInterval = 500;
         if (System.currentTimeMillis() - lastMoveTime >= shootInterval) {
             lastMoveTime = System.currentTimeMillis();
-            Missile missile = MissileFactory.createMissile(this.getX() + 20, this.getY() + 23, this.getState());
+            Missile missile = GameObjectFactory.createBasicMissile(this.getX() + 20, this.getY() + 23, this.getState());
             missileManager.addMissile(missile);
         }
     }

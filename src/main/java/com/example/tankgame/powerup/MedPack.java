@@ -1,4 +1,4 @@
-package com.example.tankgame.powerups;
+package com.example.tankgame.powerup;
 
 import com.example.tankgame.tank.Tank;
 
@@ -9,7 +9,7 @@ public class MedPack extends PowerUps {
 
     @Override
     public String getImagePath() {
-        return "/com/example/tankgame/images/10.gif"; //TODO: Change to medpack image
+        return "/com/example/tankgame/images/MedPack.gif"; //TODO: Change to medpack image
     }
 
     @Override
