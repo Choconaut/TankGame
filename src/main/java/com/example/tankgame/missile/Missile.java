@@ -46,4 +46,9 @@ public abstract class Missile extends GameObject {
     public boolean isOutOfBounds(double screenWidth, double screenHeight) {
         return x < 0 || x > screenWidth || y < 0 || y > screenHeight;
     }
+
+    @Override
+    public void handleCollision(GameObject obj2) {
+        System.out.println("Missile collision");
+    }
 }

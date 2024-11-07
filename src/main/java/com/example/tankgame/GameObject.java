@@ -1,5 +1,7 @@
 package com.example.tankgame;
 
+import javafx.geometry.Bounds;
+
 public abstract class GameObject {
     protected double x;
     protected double y;
@@ -21,8 +23,11 @@ public abstract class GameObject {
 
     public abstract String getImagePath();
 
-    public void checkCollision(GameObject otherObject) {
-
+    public Bounds getBounds(GameObjectRenderer renderer) {
+        return renderer.getImageView().getBoundsInParent();
     }
 
+    public void handleCollision(GameObject obj2){
+
+    }
 }

@@ -39,4 +39,9 @@ public abstract class Tank extends GameObject {
     public String getImagePath() {
         return this.getState().getImagePath(this);
     }
+
+    @Override
+    public void handleCollision(GameObject obj2) {
+        System.out.println("Tank collision");
+    }
 }

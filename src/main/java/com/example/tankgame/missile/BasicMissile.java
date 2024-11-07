@@ -14,4 +14,5 @@ public class BasicMissile extends Missile {
         super.update();
         // Other missile-specific logic
     }
+
 }

@@ -21,10 +21,11 @@ public class MissileManager {
         root.getChildren().add(missileRenderer.getImageView());
     }
 
-    public void update(double screenWidth, double screenHeight) {
+    public void update(double screenWidth, double screenHeight, List <GameObjectRenderer> renderers) {
         Iterator<GameObjectRenderer> iterator = missiles.iterator();
         while (iterator.hasNext()) {
             GameObjectRenderer missileRenderer = iterator.next();
+            renderers.add(missileRenderer);
             Missile missile = (Missile) missileRenderer.getGameObject();
 
             missile.move();
@@ -33,6 +34,9 @@ public class MissileManager {
 
             if (missile.isOutOfBounds(screenWidth, screenHeight)) {
                 root.getChildren().remove(missileRenderer.getImageView());
+                System.out.println("Missile out of bounds");
+                System.out.println("___________________________________________________________________________________");
+                renderers.remove(missileRenderer);
                 iterator.remove();
             }
         }

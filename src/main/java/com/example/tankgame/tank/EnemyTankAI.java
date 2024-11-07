@@ -30,16 +30,12 @@ public class EnemyTankAI {
 
             // Set the enemy's direction based on the angle
             if (angle >= -45 && angle < 45) {
-                // Right
                 enemyTank.setState(new Right());
             } else if (angle >= 45 && angle < 135) {
-                // Down
                 enemyTank.setState(new Down());
             } else if (angle >= -135 && angle < -45) {
-                // Up
                 enemyTank.setState(new Up());
             } else {
-                // Left
                 enemyTank.setState(new Left());
             }
 

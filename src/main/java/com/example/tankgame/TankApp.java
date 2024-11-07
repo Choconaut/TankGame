@@ -8,9 +8,14 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TankApp extends Application {
 
@@ -22,7 +27,6 @@ public class TankApp extends Application {
         Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight(), Color.gray(0.2));
 
         //Game objects
-
         MissileManager missileManager = new MissileManager(root);
 
         GameObjectFactory gameObjectFactory = new GameObjectFactory(root);
@@ -35,6 +39,9 @@ public class TankApp extends Application {
         EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
 
         //Create Renderers
+        List<GameObjectRenderer> renderers = new ArrayList<>();
+        CollisionManager collisionManager = new CollisionManager(renderers, root);
+
         GameObjectRenderer playerTankRenderer = new GameObjectRenderer(playerTank);
         GameObjectRenderer enemyTankRenderer = new GameObjectRenderer(enemyTank);
         GameObjectRenderer enemyTankRenderer2 = new GameObjectRenderer(enemyTank2);
@@ -47,25 +54,11 @@ public class TankApp extends Application {
           medPackRenderer.getImageView()
         );
 
-
-//        PlayerTank playerTank = new PlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25, missileManager);
-//        TankRenderer playerTankRenderer = new TankRenderer(playerTank);
-//
-//        EnemyTank enemyTank = new EnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25, missileManager);
-//        TankRenderer enemyTankRenderer = new TankRenderer(enemyTank);
-//        EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
-//
-//        EnemyTank enemyTank2 = new EnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
-//        TankRenderer enemyTankRenderer2 = new TankRenderer(enemyTank2);
-//        EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
-
-//        MedPack medPack = new MedPack(100, 100);
-//        PowerUpRenderer medPackRenderer = new PowerUpRenderer(medPack);
-//        root.getChildren().add(medPackRenderer.getImageView());
-
-//        root.getChildren().add(playerTankRenderer.getImageView());
-//        root.getChildren().add(enemyTankRenderer.getImageView());
-//        root.getChildren().add(enemyTankRenderer2.getImageView());
+        //List of renderers used to detect collisions
+        renderers.add(playerTankRenderer);
+        renderers.add(enemyTankRenderer);
+        renderers.add(enemyTankRenderer2);
+        renderers.add(medPackRenderer);
 
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Tank Game");
@@ -91,7 +84,13 @@ public class TankApp extends Application {
 
                 medPack.update();
 
-                missileManager.update(screenBounds.getWidth(), screenBounds.getHeight());
+                for (GameObjectRenderer renderer : renderers) {
+                    renderer.getGameObject().update();
+                }
+
+                collisionManager.checkCollisions();
+
+                missileManager.update(screenBounds.getWidth(), screenBounds.getHeight(), renderers);
             }
         };
         gameLoop.start();

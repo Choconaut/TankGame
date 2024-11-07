@@ -1,13 +1,15 @@
 package com.example.tankgame;
 
+import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.List;
 import java.util.Objects;
 
 public class GameObjectRenderer {
-    private GameObject gameObject;
-    private ImageView imageView;
+    private final GameObject gameObject;
+    private final ImageView imageView;
 
     public GameObjectRenderer(GameObject gameObject) {
         this.gameObject = gameObject;
@@ -39,4 +41,5 @@ public class GameObjectRenderer {
     public GameObject getGameObject() {
         return gameObject;
     }
+
 }
