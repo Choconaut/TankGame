@@ -14,9 +14,19 @@ public class Down implements Direction {
     @Override
     public String getImagePath(GameObject object) {
         if(object instanceof Tank)
-            return "/com/example/tankgame/images/tankD.gif";
+            return "/com/example/tankgame/images/bTankD.png";
         else if (object instanceof Missile)
             return "/com/example/tankgame/images/missileD.gif";
         return null;
+    }
+
+    @Override
+    public int getOffsetX() {
+        return 24;
+    }
+
+    @Override
+    public int getOffsetY() {
+        return 40;
     }
 }

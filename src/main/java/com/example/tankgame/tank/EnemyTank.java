@@ -21,7 +21,10 @@ public class EnemyTank extends Tank {
     }
 
     public void fire() {
-        Missile missile = GameObjectFactory.createBasicMissile(this.getX() + 20, this.getY() + 23, this.getState());
+        Missile missile = GameObjectFactory.createBasicMissile(
+                this.getX() + this.state.getOffsetX(),
+                this.getY() + this.state.getOffsetY(),
+                this.getState());
         missileManager.addMissile(missile);
     }
 }

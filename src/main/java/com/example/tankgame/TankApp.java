@@ -61,7 +61,7 @@ public class TankApp extends Application {
         // Handle Collisions
         CollisionDetector collisionDetector = new CollisionDetector();
 
-        primaryStage.setMaximized(true);
+        primaryStage.setResizable(false);
         primaryStage.setTitle("Tank Game");
         primaryStage.setScene(scene);
         primaryStage.show();

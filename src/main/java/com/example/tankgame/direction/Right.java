@@ -14,9 +14,19 @@ public class Right implements Direction {
     @Override
     public String getImagePath(GameObject object) {
         if(object instanceof Tank)
-            return "/com/example/tankgame/images/tankR.gif";
+            return "/com/example/tankgame/images/bTankR.png";
         else if (object instanceof Missile)
             return "/com/example/tankgame/images/missileR.gif";
         return null;
+    }
+
+    @Override
+    public int getOffsetX() {
+        return 40;
+    }
+
+    @Override
+    public int getOffsetY() {
+        return 24;
     }
 }

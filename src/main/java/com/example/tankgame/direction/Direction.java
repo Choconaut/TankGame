@@ -8,4 +8,8 @@ public interface Direction {
 
     String getImagePath(GameObject object);
 
+    int getOffsetX();
+
+    int getOffsetY();
+
 }
