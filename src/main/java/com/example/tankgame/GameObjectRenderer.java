@@ -32,6 +32,10 @@ public class GameObjectRenderer {
         imageView.setY(gameObject.getY());
     }
 
+    public void remove() {
+        imageView.setImage(null);
+    }
+
     public ImageView getImageView() {
         return imageView;
     }

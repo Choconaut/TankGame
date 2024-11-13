@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javafx.scene.paint.Color.rgb;
+
 public class TankApp extends Application {
 
     private final List<GameObject> gameObjects = new ArrayList<>();
@@ -22,19 +24,19 @@ public class TankApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
+        Color backgroundColor = Color.rgb(139, 99, 69);
 
-        Scene scene = new Scene(root, 800, 800, Color.gray(0.2));
+        Scene scene = new Scene(root, 800, 800, backgroundColor);
 
         //Game objects
-
         MissileManager missileManager = new MissileManager(root);
 
         //Create GameObjects
         GameObjectFactory gameObjectFactory = new GameObjectFactory(root);
 
-        PlayerTank playerTank = gameObjectFactory.createPlayerTank(675, 675, missileManager);
+        PlayerTank playerTank = gameObjectFactory.createPlayerTank(375, 675, missileManager);
         EnemyTank enemyTank = gameObjectFactory.createEnemyTank(100, 100, missileManager);
-        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(100, 700, missileManager);
+        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(700, 100, missileManager);
         MedPack medPack = gameObjectFactory.createMedPack(100, 100);
         EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
         EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
@@ -66,24 +68,50 @@ public class TankApp extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        TankController tankController = new TankController(scene, playerTank);
+        new TankController(scene, playerTank);
 
         // Game loop to update game logic and rendering
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
+            //State pattern here?
+            //Even if gameObject is removed, checks are still being made.
             public void handle(long now) {
-                playerTank.update();
-                playerTankRenderer.update();
+                if (playerTank.isDead()){
+                    this.stop();
+                } else {
+                    playerTank.update();
+                    playerTankRenderer.update();
+                }
 
-                enemyTank.update();
-                enemyTankRenderer.update();
-                enemyTankAI.update();
+                if (enemyTank.isDead()){
+                    //Is object still in mem?
+                    gameObjects.remove(enemyTank);
+                    enemyTankRenderer.remove();
+                } else {
+                    enemyTank.update();
+                    enemyTankRenderer.update();
+                    enemyTankAI.update();
+                }
 
-                enemyTank2.update();
-                enemyTankRenderer2.update();
-                enemyTankAI2.update();
+                if (enemyTank2.isDead()){
+                    gameObjects.remove(enemyTank2);
+                    enemyTankRenderer2.remove();
+                } else {
+                    enemyTank2.update();
+                    enemyTankRenderer2.update();
+                    enemyTankAI2.update();
+                }
 
-                medPack.update();
+                if (medPack.isActive()) {
+                    medPack.update();
+                } else {
+                    gameObjects.remove(medPack);
+                    medPackRenderer.remove();
+                }
+
+//                for (GameObject existing : gameObjects) {
+//                    System.out.println(existing);
+//                }
 
                 missileManager.update(800,  800);
 

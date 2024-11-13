@@ -48,7 +48,7 @@ public class EnemyTankAI {
 
         // Shoot at the player every shootInterval
         if (System.currentTimeMillis() - lastFireTime >= shootInterval) {
-            double tolerance = 50.0; // Allow a bit of tolerance for firing
+            double tolerance = 30.0; // Allow a bit of tolerance for firing
             if (Math.abs(enemyTank.getX() - playerTank.getX()) < tolerance ||
                     Math.abs(enemyTank.getY() - playerTank.getY()) < tolerance) {
                 if (Math.random() < 0.5) { // 50% chance to fire

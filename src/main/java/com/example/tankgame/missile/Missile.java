@@ -12,7 +12,7 @@ public abstract class Missile extends GameObject {
 
     public Missile(double x, double y) {
         super(x, y);
-        this.damage = 25;
+        this.damage = 20;
         this.speed = 10.0;
         this.width = 10;
         this.height = 10; //different sizes based on direction

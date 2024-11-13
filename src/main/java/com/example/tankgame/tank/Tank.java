@@ -3,6 +3,7 @@ package com.example.tankgame.tank;
 import com.example.tankgame.GameObject;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.missile.Missile;
+import com.example.tankgame.powerup.MedPack;
 
 
 public abstract class Tank extends GameObject {
@@ -13,7 +14,7 @@ public abstract class Tank extends GameObject {
     public Tank(double x, double y) {
         super(x, y);
         this.health = 100;
-        this.speed = 5.0;
+        this.speed = 2.5;
         this.width = 50;
         this.height = 50;
     }
@@ -48,7 +49,13 @@ public abstract class Tank extends GameObject {
         if (other instanceof Missile) {
             this.setHealth(this.getHealth() - ((Missile) other).getDamage());
             System.out.println("Tank hit! Health: " + this.getHealth());
+        } else if (other instanceof MedPack) {
+                ((MedPack) other).handleCollision(this);
         }
+    }
+
+    public boolean isDead() {
+        return this.getHealth() <= 0;
     }
 
 }

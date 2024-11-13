@@ -21,7 +21,7 @@ public class PlayerTank extends Tank {
     }
 
     public void fire() {
-        int shootInterval =1000;
+        int shootInterval = 1000;
         if (System.currentTimeMillis() - lastMoveTime >= shootInterval) {
             lastMoveTime = System.currentTimeMillis();
             Missile missile = GameObjectFactory.createBasicMissile(

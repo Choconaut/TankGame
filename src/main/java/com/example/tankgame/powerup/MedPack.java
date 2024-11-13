@@ -9,7 +9,7 @@ public class MedPack extends PowerUps {
 
     @Override
     public String getImagePath() {
-        return "/com/example/tankgame/images/MedPack.gif"; //TODO: Change to medpack image
+        return "/com/example/tankgame/images/MedPack.gif";
     }
 
     @Override
@@ -18,8 +18,14 @@ public class MedPack extends PowerUps {
     }
 
     public void heal(Tank tank) {
-        tank.setHealth(tank.getHealth() + 60);
+        tank.setHealth(Math.min(tank.getHealth() + 60, 100));
+        System.out.println("Tank healed! Health: " + tank.getHealth());
     }
 
+    @Override
+    public void handleCollision(Tank tank) {
+        heal(tank);
+        this.setActive(false);
+    }
 
 }
