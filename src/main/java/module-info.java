@@ -12,5 +12,6 @@ module com.example.tankgame {
     opens com.example.tankgame to javafx.fxml;
     exports com.example.tankgame;
     exports com.example.tankgame.tank;
+    exports com.example.tankgame.direction;
     opens com.example.tankgame.tank to javafx.fxml;
 }

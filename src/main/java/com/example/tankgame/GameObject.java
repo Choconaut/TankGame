@@ -3,6 +3,8 @@ package com.example.tankgame;
 public abstract class GameObject {
     protected double x;
     protected double y;
+    protected int width;
+    protected int height;
 
     public GameObject(double x, double y) {
         this.x = x;
@@ -21,7 +23,7 @@ public abstract class GameObject {
 
     public abstract String getImagePath();
 
-    public void checkCollision(GameObject otherObject) {
+    public void handleCollision(GameObject otherObject) {
 
     }
 

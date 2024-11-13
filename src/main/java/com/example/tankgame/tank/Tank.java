@@ -13,6 +13,8 @@ public abstract class Tank extends GameObject {
         super(x, y);
         this.health = 100;
         this.speed = 5.0;
+        this.width = 50;
+        this.height = 50;
     }
 
     public void move() {
