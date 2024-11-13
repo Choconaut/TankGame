@@ -17,14 +17,25 @@ public abstract class GameObject {
 
     public double getY() { return y; }
 
+    public double getMaxX() { return x + width; }
+
+    public double getMaxY() { return y + height; }
+
     public void setX(double x) { this.x = x; }
 
     public void setY(double y) { this.y = y; }
 
     public abstract String getImagePath();
 
-    public void handleCollision(GameObject otherObject) {
+    public boolean intercepts(GameObject otherObject) {
+        return this.x < otherObject.getMaxX() &&
+                this.getMaxX() > otherObject.getX() &&
+                this.y < otherObject.getMaxY() &&
+                this.getMaxY() > otherObject.getY();
+    }
 
+    public void handleCollision(GameObject otherObject) {
+        System.out.println("Collision detected");
     }
 
 }

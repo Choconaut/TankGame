@@ -2,6 +2,7 @@ package com.example.tankgame.tank;
 
 import com.example.tankgame.GameObject;
 import com.example.tankgame.direction.Direction;
+import com.example.tankgame.missile.Missile;
 
 
 public abstract class Tank extends GameObject {
@@ -41,4 +42,13 @@ public abstract class Tank extends GameObject {
     public String getImagePath() {
         return this.getState().getImagePath(this);
     }
+
+    @Override
+    public void handleCollision(GameObject other) {
+        if (other instanceof Missile) {
+            this.setHealth(this.getHealth() - ((Missile) other).getDamage());
+            System.out.println("Tank hit! Health: " + this.getHealth());
+        }
+    }
+
 }

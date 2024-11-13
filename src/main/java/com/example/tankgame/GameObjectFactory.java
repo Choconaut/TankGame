@@ -16,12 +16,8 @@ public class GameObjectFactory {
         this.root = root;
     }
 
-    //Should I combine the createPlayerTank and createEnemyTank methods into one method?
     public PlayerTank createPlayerTank(double x, double y, MissileManager missileManager) {
         return new PlayerTank(x, y, missileManager);
-//        TankRenderer playerTankRenderer = new TankRenderer(playerTank);
-//        root.getChildren().add(playerTankRenderer.getImageView());
-
     }
 
     public EnemyTank createEnemyTank(double x, double y, MissileManager missileManager) {

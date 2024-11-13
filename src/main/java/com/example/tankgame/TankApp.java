@@ -12,27 +12,38 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TankApp extends Application {
+
+    private final List<GameObject> gameObjects = new ArrayList<>();
 
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
 
-        Rectangle2D screenBounds = Screen.getPrimary().getBounds();
-        Scene scene = new Scene(root, screenBounds.getWidth(), screenBounds.getHeight(), Color.gray(0.2));
+        Scene scene = new Scene(root, 800, 800, Color.gray(0.2));
 
         //Game objects
 
         MissileManager missileManager = new MissileManager(root);
 
+        //Create GameObjects
         GameObjectFactory gameObjectFactory = new GameObjectFactory(root);
 
-        PlayerTank playerTank = gameObjectFactory.createPlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25, missileManager);
-        EnemyTank enemyTank = gameObjectFactory.createEnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25, missileManager);
-        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
+        PlayerTank playerTank = gameObjectFactory.createPlayerTank(675, 675, missileManager);
+        EnemyTank enemyTank = gameObjectFactory.createEnemyTank(100, 100, missileManager);
+        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(100, 700, missileManager);
         MedPack medPack = gameObjectFactory.createMedPack(100, 100);
         EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
         EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
+
+        //Add GameObjects to list
+        gameObjects.add(playerTank);
+        gameObjects.add(enemyTank);
+        gameObjects.add(enemyTank2);
+        gameObjects.add(medPack);
 
         //Create Renderers
         GameObjectRenderer playerTankRenderer = new GameObjectRenderer(playerTank);
@@ -47,25 +58,8 @@ public class TankApp extends Application {
           medPackRenderer.getImageView()
         );
 
-
-//        PlayerTank playerTank = new PlayerTank(screenBounds.getWidth() / 2 - 25, screenBounds.getHeight() / 2 - 25, missileManager);
-//        TankRenderer playerTankRenderer = new TankRenderer(playerTank);
-//
-//        EnemyTank enemyTank = new EnemyTank(screenBounds.getWidth() / 6 - 25, screenBounds.getHeight() / 6 - 25, missileManager);
-//        TankRenderer enemyTankRenderer = new TankRenderer(enemyTank);
-//        EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
-//
-//        EnemyTank enemyTank2 = new EnemyTank(screenBounds.getWidth() - 75, screenBounds.getHeight() / 6 - 25, missileManager);
-//        TankRenderer enemyTankRenderer2 = new TankRenderer(enemyTank2);
-//        EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
-
-//        MedPack medPack = new MedPack(100, 100);
-//        PowerUpRenderer medPackRenderer = new PowerUpRenderer(medPack);
-//        root.getChildren().add(medPackRenderer.getImageView());
-
-//        root.getChildren().add(playerTankRenderer.getImageView());
-//        root.getChildren().add(enemyTankRenderer.getImageView());
-//        root.getChildren().add(enemyTankRenderer2.getImageView());
+        // Handle Collisions
+        CollisionDetector collisionDetector = new CollisionDetector();
 
         primaryStage.setMaximized(true);
         primaryStage.setTitle("Tank Game");
@@ -91,7 +85,20 @@ public class TankApp extends Application {
 
                 medPack.update();
 
-                missileManager.update(screenBounds.getWidth(), screenBounds.getHeight());
+                missileManager.update(800,  800);
+
+                gameObjects.clear();
+                gameObjects.add(playerTank);
+                gameObjects.add(enemyTank);
+                gameObjects.add(enemyTank2);
+                gameObjects.add(medPack);
+
+                // Add all active missiles to the gameObjects list
+                gameObjects.addAll(missileManager.getMissiles());
+
+                collisionDetector.detectCollision(gameObjects);
+
+                missileManager.removeInactiveMissiles();
             }
         };
         gameLoop.start();

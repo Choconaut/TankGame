@@ -8,7 +8,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class MissileManager {
-    private final List<GameObjectRenderer> missiles = new ArrayList<>();
+    private final List<GameObjectRenderer> missileRenderers = new ArrayList<>();
+    private final List<Missile> missiles = new ArrayList<>();
     private final Group root;
 
     public MissileManager(Group root) {
@@ -17,24 +18,48 @@ public class MissileManager {
 
     public void addMissile(Missile missile) {
         GameObjectRenderer missileRenderer = new GameObjectRenderer(missile);
-        missiles.add(missileRenderer);
+        missileRenderers.add(missileRenderer);
+        missiles.add(missile);
         root.getChildren().add(missileRenderer.getImageView());
     }
 
     public void update(double screenWidth, double screenHeight) {
-        Iterator<GameObjectRenderer> iterator = missiles.iterator();
-        while (iterator.hasNext()) {
-            GameObjectRenderer missileRenderer = iterator.next();
-            Missile missile = (Missile) missileRenderer.getGameObject();
+        Iterator<GameObjectRenderer> rendererIterator = missileRenderers.iterator();
+        Iterator<Missile> missileIterator = missiles.iterator();
+
+        while (rendererIterator.hasNext() && missileIterator.hasNext()) {
+            GameObjectRenderer missileRenderer = rendererIterator.next();
+            Missile missile = missileIterator.next();
 
             missile.move();
-
             missileRenderer.update();
 
             if (missile.isOutOfBounds(screenWidth, screenHeight)) {
                 root.getChildren().remove(missileRenderer.getImageView());
-                iterator.remove();
+                rendererIterator.remove();
+                missileIterator.remove();
             }
         }
     }
+
+    public void removeInactiveMissiles() {
+        Iterator<Missile> missileIterator = missiles.iterator();
+        Iterator<GameObjectRenderer> rendererIterator = missileRenderers.iterator();
+
+        while (missileIterator.hasNext() && rendererIterator.hasNext()) {
+            Missile missile = missileIterator.next();
+            GameObjectRenderer renderer = rendererIterator.next();
+
+            if (!missile.isActive()) {
+                root.getChildren().remove(renderer.getImageView());
+                missileIterator.remove();
+                rendererIterator.remove();
+            }
+        }
+    }
+
+    public List<Missile> getMissiles() {
+        return missiles;
+    }
+
 }
