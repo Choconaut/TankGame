@@ -1,6 +1,7 @@
 package com.example.tankgame.tank;
 
 import com.example.tankgame.GameObject;
+import com.example.tankgame.GameObjectFactory;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.missile.Missile;
 import com.example.tankgame.powerup.MedPack;

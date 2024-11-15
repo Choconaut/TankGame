@@ -18,6 +18,7 @@ public class CollisionDetector {
             //Remove objects that are not overlapping in the x-axis
             activeObjects.removeIf(other -> current.getX() > other.getMaxX());
 
+            
             //for all objects in the active list, check for collision in the y-axis
             for (GameObject other : activeObjects) {
                 //If the objects are overlapping in the y-axis, handle the collision

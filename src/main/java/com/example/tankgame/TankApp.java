@@ -5,17 +5,13 @@ import com.example.tankgame.powerup.MedPack;
 import com.example.tankgame.tank.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static javafx.scene.paint.Color.rgb;
 
 public class TankApp extends Application {
 

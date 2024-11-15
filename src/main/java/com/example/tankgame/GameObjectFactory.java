@@ -1,6 +1,7 @@
 package com.example.tankgame;
 
 import com.example.tankgame.direction.Direction;
+import com.example.tankgame.explosion.Explosion;
 import com.example.tankgame.missile.BasicMissile;
 import com.example.tankgame.missile.Missile;
 import com.example.tankgame.missile.MissileManager;
@@ -32,6 +33,10 @@ public class GameObjectFactory {
         Missile missile = new BasicMissile(x, y, direction);
         missile.setState(direction);
         return missile;
+    }
+
+    public Explosion createExplosion(double x, double y) {
+        return new Explosion(x, y);
     }
 
 
