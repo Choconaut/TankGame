@@ -1,6 +1,6 @@
 package com.example.tankgame.explosion;
 
-import com.example.tankgame.GameObject;
+import com.example.tankgame.gameobject.GameObject;
 
 public class Explosion extends GameObject {
     public Explosion(double x, double y) {

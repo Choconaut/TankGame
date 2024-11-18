@@ -17,15 +17,17 @@ public class MedPack extends PowerUps {
 
     }
 
-    public void heal(Tank tank) {
-        tank.setHealth(Math.min(tank.getHealth() + 60, 100));
-        System.out.println("Tank healed! Health: " + tank.getHealth());
-    }
-
     @Override
     public void handleCollision(Tank tank) {
-        heal(tank);
+        applyEffect(tank);
         this.setActive(false);
+    }
+
+    // Heals the tank by 60 health points
+    @Override
+    public void applyEffect(Tank tank) {
+        tank.setHealth(Math.min(tank.getHealth() + 60, 100));
+        System.out.println("Tank healed! Health: " + tank.getHealth());
     }
 
 }

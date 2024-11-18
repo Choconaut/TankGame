@@ -16,6 +16,10 @@ public class PlayerTank extends Tank {
         // Explosion, then You Died
     }
 
+    /**
+     * shootInterval is to prevent the player from spam shooting
+     * uses the fire method from the Tank class
+     */
     public void fire() {
         int shootInterval = 1000;
         if (System.currentTimeMillis() - lastMoveTime >= shootInterval) {

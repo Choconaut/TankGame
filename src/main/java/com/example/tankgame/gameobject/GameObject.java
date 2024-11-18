@@ -1,5 +1,11 @@
-package com.example.tankgame;
+package com.example.tankgame.gameobject;
 
+/**
+ * GameObject is the base class for all objects in the game.
+ * It contains the x and y coordinates of the object, as well as the width and height.
+ * It also contains a boolean isActive to determine if the object is active or not.
+ * isActive is used to determine if the object should be removed from the game or kept updated.
+ */
 public abstract class GameObject {
     protected double x;
     protected double y;
@@ -14,6 +20,13 @@ public abstract class GameObject {
 
     public abstract void update();
 
+    /**
+     * Getters and Setters
+     * <p>
+     * getX is the initial x coordinate of the object. getMaxX is the x coordinate plus the width of the object.
+     * This is used to determine if any x coordinates of other objects are within the x coordinates of this object.
+     * rather than checking if the x coordinate of one object is equal to the x coordinate of another object.
+     */
     public double getX() { return x; }
 
     public double getY() { return y; }
@@ -32,6 +45,7 @@ public abstract class GameObject {
 
     public abstract String getImagePath();
 
+    // The intercepts method checks if the object is intercepting another object.
     public boolean intercepts(GameObject otherObject) {
         return this.x < otherObject.getMaxX() &&
                 this.getMaxX() > otherObject.getX() &&
@@ -39,6 +53,7 @@ public abstract class GameObject {
                 this.getMaxY() > otherObject.getY();
     }
 
+    // The default implementation that should be overridden by subclasses.
     public void handleCollision(GameObject otherObject) {
         System.out.println("Collision detected");
     }

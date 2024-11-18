@@ -1,6 +1,6 @@
 package com.example.tankgame.direction;
 
-import com.example.tankgame.GameObject;
+import com.example.tankgame.gameobject.GameObject;
 
 public interface Direction {
 

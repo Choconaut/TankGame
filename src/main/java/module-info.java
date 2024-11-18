@@ -19,4 +19,5 @@ module com.example.tankgame {
     exports com.example.tankgame.gameobject;
     exports com.example.tankgame.aidifficulty;
     opens com.example.tankgame.tank to javafx.fxml;
+    opens com.example.tankgame.gameobject to javafx.fxml;
 }

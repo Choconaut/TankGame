@@ -1,10 +1,15 @@
-package com.example.tankgame;
+package com.example.tankgame.gameobject;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
+/**
+ * GameObjectRenderer is a class that is responsible for rendering a GameObject.
+ * It contains a GameObject and an ImageView. The GameObjectRenderer updates the
+ * ImageView based on the GameObject's image path and position.
+ */
 public class GameObjectRenderer {
     private GameObject gameObject;
     private ImageView imageView;
@@ -21,6 +26,7 @@ public class GameObjectRenderer {
         updatePosition();
     }
 
+    // Update the image of the ImageView based on the image path of the GameObject.
     private void updateImage() {
         String imagePath = gameObject.getImagePath();
         Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));

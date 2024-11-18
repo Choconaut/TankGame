@@ -1,7 +1,5 @@
 package com.example.tankgame.gameobject;
 
-import com.example.tankgame.GameObject;
-import com.example.tankgame.GameObjectRenderer;
 import javafx.scene.Group;
 
 import java.util.ArrayList;
@@ -9,15 +7,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class manages a list of game objects and their corresponding renderers.
+ * It handles adding, removing, and updating game objects and their images.
+ */
 public class GameObjectManager {
     private final List<GameObject> gameObjects = new ArrayList<>();
     private final Map<GameObject, GameObjectRenderer> renderers = new HashMap<>();
     private final Group root;
 
+    /**
+     * Constructs a GameObjectManager with the specified root group for rendering.
+     *
+     * @param root the root group for rendering game objects
+     */
     public GameObjectManager(Group root) {
         this.root = root;
     }
 
+    /**
+     * Adds a game object to the manager and its renderer to the root group.
+     *
+     * @param gameObject the game object to add
+     */
     public void addGameObject(GameObject gameObject) {
         gameObjects.add(gameObject);
         GameObjectRenderer renderer = new GameObjectRenderer(gameObject);
@@ -33,6 +45,10 @@ public class GameObjectManager {
         }
     }
 
+    /**
+     * Updates all game objects and their renderers based on their active status.
+     * Removes inactive game objects after updating.
+     */
     public void updateAll() {
         // List to collect inactive objects
         List<GameObject> toRemove = new ArrayList<>();
@@ -54,7 +70,9 @@ public class GameObjectManager {
         }
     }
 
-
+    /**
+     * Returns a list of all game objects managed by this manager.
+     */
     public List<GameObject> getGameObjects() {
         return new ArrayList<>(gameObjects);
     }

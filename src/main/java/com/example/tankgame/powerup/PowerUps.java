@@ -1,8 +1,11 @@
 package com.example.tankgame.powerup;
 
-import com.example.tankgame.GameObject;
+import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.tank.Tank;
 
+/**
+ * PowerUps is the parent class for all powerups in the game.
+ */
 public abstract class PowerUps extends GameObject {
 
     public PowerUps(double x, double y) {
@@ -13,5 +16,5 @@ public abstract class PowerUps extends GameObject {
 
     public abstract void handleCollision(Tank tank);
 
-    // abstract method for applying affects
+    public abstract void applyEffect(Tank tank);
 }

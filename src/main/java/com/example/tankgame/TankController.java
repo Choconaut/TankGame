@@ -7,6 +7,9 @@ import com.example.tankgame.direction.Up;
 import javafx.scene.Scene;
 import com.example.tankgame.tank.PlayerTank;
 
+/**
+ * TankController class is responsible for controlling the player tank.
+ */
 public class TankController {
 
     public TankController(Scene scene, PlayerTank playerTank) {

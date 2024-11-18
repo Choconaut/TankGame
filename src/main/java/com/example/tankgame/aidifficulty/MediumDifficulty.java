@@ -6,17 +6,11 @@ import com.example.tankgame.direction.Right;
 import com.example.tankgame.direction.Up;
 import com.example.tankgame.tank.Tank;
 
-/** TODO: angle is not a good way to calculate the direction of the AI tank when
- *  the AI tank is close to the target tank. Perhaps when close, the AI should
- *  strictly focus on one direction, then the other.
- */
-
-
-public class EasyDifficulty implements AIDifficulty {
-    private long lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 200); // Randomize the first move time
-    private long lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 3000); // Randomize the first fire time
-    private final int moveInterval = 500 + (int)(Math.random() * 500); // Move every 500-1000ms
-    private final int shootInterval = 5000 + (int)(Math.random() * 3000); // Shoot every 5000-8000ms
+public class MediumDifficulty implements AIDifficulty {
+    private long lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 2000); // Randomize the first move time
+    private long lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 1000); // Randomize the first fire time
+    private final int moveInterval = 100 + (int)(Math.random() * 600); // Move every 100-7000ms
+    private final int shootInterval = 1500 + (int)(Math.random() * 3000); // Shoot every 1500-4500ms
 
     @Override
     public void execute(Tank AITank, Tank targetTank) {

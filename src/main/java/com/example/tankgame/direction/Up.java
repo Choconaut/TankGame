@@ -1,6 +1,6 @@
 package com.example.tankgame.direction;
 
-import com.example.tankgame.GameObject;
+import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.missile.Missile;
 import com.example.tankgame.tank.Tank;
 

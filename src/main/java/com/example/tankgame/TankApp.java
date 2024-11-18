@@ -1,6 +1,8 @@
 package com.example.tankgame;
 
 import com.example.tankgame.aidifficulty.EasyDifficulty;
+import com.example.tankgame.aidifficulty.MediumDifficulty;
+import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.powerup.MedPack;
 import com.example.tankgame.tank.*;
@@ -27,12 +29,12 @@ public class TankApp extends Application {
         PlayerTank playerTank = gameObjectFactory.createPlayerTank(375, 675);
         gameObjectManager.addGameObject(playerTank);
 
-        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, playerTank, new EasyDifficulty()));
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(700, 100, playerTank, new EasyDifficulty()));
 
-        AITank AITank2 = gameObjectFactory.createEnemyTank(700, 100, playerTank, new EasyDifficulty());
+        AITank AITank2 = gameObjectFactory.createAITank(100, 100, playerTank, new MediumDifficulty());
         gameObjectManager.addGameObject(AITank2);
 
-        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, AITank2, new EasyDifficulty()));
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(200, 675, AITank2, new EasyDifficulty()));
 
         MedPack medPack = gameObjectFactory.createMedPack(100, 100);
         gameObjectManager.addGameObject(medPack);

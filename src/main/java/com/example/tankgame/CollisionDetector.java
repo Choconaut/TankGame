@@ -1,5 +1,7 @@
 package com.example.tankgame;
 
+import com.example.tankgame.gameobject.GameObject;
+
 import java.util.*;
 
 //Sort and Prune
