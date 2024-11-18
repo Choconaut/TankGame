@@ -1,5 +1,6 @@
 package com.example.tankgame;
 
+import com.example.tankgame.aidifficulty.AIDifficulty;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.explosion.Explosion;
 import com.example.tankgame.gameobject.GameObjectManager;
@@ -8,6 +9,7 @@ import com.example.tankgame.missile.Missile;
 import com.example.tankgame.powerup.MedPack;
 import com.example.tankgame.tank.EnemyTank;
 import com.example.tankgame.tank.PlayerTank;
+import com.example.tankgame.tank.Tank;
 
 public class GameObjectFactory {
     private final GameObjectManager gameObjectManager;
@@ -20,8 +22,8 @@ public class GameObjectFactory {
         return new PlayerTank(x, y, gameObjectManager);
     }
 
-    public EnemyTank createEnemyTank(double x, double y) {
-        return new EnemyTank(x, y, gameObjectManager);
+    public EnemyTank createEnemyTank(double x, double y, Tank tank, AIDifficulty AIDifficulty) {
+        return new EnemyTank(x, y, tank, AIDifficulty,gameObjectManager);
     }
 
     public MedPack createMedPack(double x, double y) {

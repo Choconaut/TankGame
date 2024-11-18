@@ -1,5 +1,6 @@
 package com.example.tankgame;
 
+import com.example.tankgame.aidifficulty.EasyDifficulty;
 import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.powerup.MedPack;
 import com.example.tankgame.tank.*;
@@ -26,16 +27,15 @@ public class TankApp extends Application {
         PlayerTank playerTank = gameObjectFactory.createPlayerTank(375, 675);
         gameObjectManager.addGameObject(playerTank);
 
-        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100));
+        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, playerTank, new EasyDifficulty()));
 
-        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(700, 100);
+        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(700, 100, playerTank, new EasyDifficulty());
         gameObjectManager.addGameObject(enemyTank2);
+
+        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, enemyTank2, new EasyDifficulty()));
 
         MedPack medPack = gameObjectFactory.createMedPack(100, 100);
         gameObjectManager.addGameObject(medPack);
-
-        EnemyTankAI enemyTankAI = new EnemyTankAI(enemyTank, playerTank);
-        EnemyTankAI enemyTankAI2 = new EnemyTankAI(enemyTank2, playerTank);
 
         // Handle Collisions
         CollisionDetector collisionDetector = new CollisionDetector();
@@ -47,14 +47,15 @@ public class TankApp extends Application {
 
         new TankController(scene, playerTank);
 
-        // Game loop to update game logic and rendering
+        // Game loop to execute game logic and rendering
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                if (!playerTank.isActive()) {
+                    stop();
+                }
                 gameObjectManager.updateAll();
                 collisionDetector.detectCollision(gameObjectManager.getGameObjects());
-                enemyTankAI.update();
-                enemyTankAI2.update();
             }
         };
         gameLoop.start();

@@ -1,26 +1,21 @@
-package com.example.tankgame.tank;
+package com.example.tankgame.aidifficulty;
 
 import com.example.tankgame.direction.Down;
 import com.example.tankgame.direction.Left;
 import com.example.tankgame.direction.Right;
 import com.example.tankgame.direction.Up;
+import com.example.tankgame.tank.Tank;
 
-public class EnemyTankAI {
-    private final EnemyTank enemyTank;
-    private final PlayerTank playerTank;
+public class EasyDifficulty implements AIDifficulty {
     private long lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 200); // Randomize the first move time
     private long lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 3000); // Randomize the first fire time
     private final int moveInterval = 500 + (int)(Math.random() * 500); // Move every 500-1000ms
     private final int shootInterval = 5000 + (int)(Math.random() * 3000); // Shoot every 5000-8000ms
 
-    public EnemyTankAI(EnemyTank enemyTank, PlayerTank playerTank) {
-        this.enemyTank = enemyTank;
-        this.playerTank = playerTank;
-    }
-
-    public void update() {
-        if (!this.enemyTank.isActive()) {
-            return; // Do not update if the enemy tank is inactive
+    @Override
+    public void execute(Tank tank, Tank targetTank) {
+        if (!tank.isActive()) {
+            return; // Do not execute if the enemy tank is inactive
         }
 
         // Only move if the interval has passed
@@ -28,39 +23,38 @@ public class EnemyTankAI {
             lastMoveTime = System.currentTimeMillis();
 
             // Calculate the angle between enemy tank and player tank
-            double dx = playerTank.getX() - enemyTank.getX();
-            double dy = playerTank.getY() - enemyTank.getY();
+            double dx = targetTank.getX() - tank.getX();
+            double dy = targetTank.getY() - tank.getY();
             double angle = Math.toDegrees(Math.atan2(dy, dx));
 
             // Set the enemy's direction based on the angle
             if (angle >= -45 && angle < 45) {
                 // Right
-                enemyTank.setState(new Right());
+                tank.setState(new Right());
             } else if (angle >= 45 && angle < 135) {
                 // Down
-                enemyTank.setState(new Down());
+                tank.setState(new Down());
             } else if (angle >= -135 && angle < -45) {
                 // Up
-                enemyTank.setState(new Up());
+                tank.setState(new Up());
             } else {
                 // Left
-                enemyTank.setState(new Left());
+                tank.setState(new Left());
             }
 
-            enemyTank.move();
+            tank.move();
         }
 
         // Shoot at the player every shootInterval
         if (System.currentTimeMillis() - lastFireTime >= shootInterval) {
             double tolerance = 30.0; // Allow a bit of tolerance for firing
-            if (Math.abs(enemyTank.getX() - playerTank.getX()) < tolerance ||
-                    Math.abs(enemyTank.getY() - playerTank.getY()) < tolerance) {
+            if (Math.abs(tank.getX() - targetTank.getX()) < tolerance ||
+                    Math.abs(tank.getY() - targetTank.getY()) < tolerance) {
                 if (Math.random() < 0.5) { // 50% chance to fire
                     lastFireTime = System.currentTimeMillis();
-                    enemyTank.fire();
+                    tank.fire();
                 }
             }
-
         }
     }
 }
