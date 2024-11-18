@@ -1,4 +1,4 @@
-This is a tank war game that was built using JavaFX to demostrate the OOP practices. 
+This is a tank war game that was built using JavaFX to demostrate OOP practices. 
 The user will control a tank that can shoot missiles to defeat enemy tanks. 
 Enemy tanks are programmed to chase the player tank and fire upon sight with a slight delay.
 Powerups such as medpacks will appear on the field for the player to pick up.
