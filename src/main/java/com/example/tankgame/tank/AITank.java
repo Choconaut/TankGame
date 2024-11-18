@@ -4,11 +4,11 @@ import com.example.tankgame.direction.Down;
 import com.example.tankgame.aidifficulty.AIDifficulty;
 import com.example.tankgame.gameobject.GameObjectManager;
 
-public class EnemyTank extends Tank {
+public class AITank extends Tank {
     private AIDifficulty AIDifficulty;
     private final Tank targetTank;
 
-    public EnemyTank(double x, double y, Tank targetTank, AIDifficulty AIDifficulty, GameObjectManager gameObjectManager) {
+    public AITank(double x, double y, Tank targetTank, AIDifficulty AIDifficulty, GameObjectManager gameObjectManager) {
         super(x, y, gameObjectManager);
         this.state = new Down(); // Default direction is down
         this.health = 50;

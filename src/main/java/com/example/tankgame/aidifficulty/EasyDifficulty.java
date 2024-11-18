@@ -13,46 +13,46 @@ public class EasyDifficulty implements AIDifficulty {
     private final int shootInterval = 5000 + (int)(Math.random() * 3000); // Shoot every 5000-8000ms
 
     @Override
-    public void execute(Tank tank, Tank targetTank) {
-        if (!tank.isActive()) {
-            return; // Do not execute if the enemy tank is inactive
+    public void execute(Tank AITank, Tank targetTank) {
+        if (!AITank.isActive()) {
+            return; // Do not execute if the AI tank is inactive
         }
 
         // Only move if the interval has passed
         if (System.currentTimeMillis() - lastMoveTime >= moveInterval) {
             lastMoveTime = System.currentTimeMillis();
 
-            // Calculate the angle between enemy tank and player tank
-            double dx = targetTank.getX() - tank.getX();
-            double dy = targetTank.getY() - tank.getY();
+            // Calculate the angle between AI tank and target tank
+            double dx = targetTank.getX() - AITank.getX();
+            double dy = targetTank.getY() - AITank.getY();
             double angle = Math.toDegrees(Math.atan2(dy, dx));
 
             // Set the enemy's direction based on the angle
             if (angle >= -45 && angle < 45) {
                 // Right
-                tank.setState(new Right());
+                AITank.setState(new Right());
             } else if (angle >= 45 && angle < 135) {
                 // Down
-                tank.setState(new Down());
+                AITank.setState(new Down());
             } else if (angle >= -135 && angle < -45) {
                 // Up
-                tank.setState(new Up());
+                AITank.setState(new Up());
             } else {
                 // Left
-                tank.setState(new Left());
+                AITank.setState(new Left());
             }
 
-            tank.move();
+            AITank.move();
         }
 
         // Shoot at the player every shootInterval
         if (System.currentTimeMillis() - lastFireTime >= shootInterval) {
             double tolerance = 30.0; // Allow a bit of tolerance for firing
-            if (Math.abs(tank.getX() - targetTank.getX()) < tolerance ||
-                    Math.abs(tank.getY() - targetTank.getY()) < tolerance) {
+            if (Math.abs(AITank.getX() - targetTank.getX()) < tolerance ||
+                    Math.abs(AITank.getY() - targetTank.getY()) < tolerance) {
                 if (Math.random() < 0.5) { // 50% chance to fire
                     lastFireTime = System.currentTimeMillis();
-                    tank.fire();
+                    AITank.fire();
                 }
             }
         }

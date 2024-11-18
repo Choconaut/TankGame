@@ -29,10 +29,10 @@ public class TankApp extends Application {
 
         gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, playerTank, new EasyDifficulty()));
 
-        EnemyTank enemyTank2 = gameObjectFactory.createEnemyTank(700, 100, playerTank, new EasyDifficulty());
-        gameObjectManager.addGameObject(enemyTank2);
+        AITank AITank2 = gameObjectFactory.createEnemyTank(700, 100, playerTank, new EasyDifficulty());
+        gameObjectManager.addGameObject(AITank2);
 
-        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, enemyTank2, new EasyDifficulty()));
+        gameObjectManager.addGameObject(gameObjectFactory.createEnemyTank(100, 100, AITank2, new EasyDifficulty()));
 
         MedPack medPack = gameObjectFactory.createMedPack(100, 100);
         gameObjectManager.addGameObject(medPack);
