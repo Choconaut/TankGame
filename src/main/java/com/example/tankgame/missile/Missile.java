@@ -8,7 +8,6 @@ public abstract class Missile extends GameObject {
     protected int damage;
     protected double speed;
     protected Direction state;
-    protected boolean active = true;
 
     public Missile(double x, double y) {
         super(x, y);
@@ -42,14 +41,6 @@ public abstract class Missile extends GameObject {
         return damage;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     @Override
     public String getImagePath() {
         return this.getState().getImagePath(this);
@@ -62,9 +53,15 @@ public abstract class Missile extends GameObject {
     @Override
     public void handleCollision(GameObject other) {
         if (other instanceof Tank) {
-            ((Tank) other).setHealth(((Tank) other).getHealth() - this.damage);
-            this.setActive(false);
+            this.collideWithTank((Tank) other);
         }
+        this.setActive(false);
     }
+
+    public void collideWithTank(Tank tank) {
+        tank.setHealth(tank.getHealth() - this.damage);
+        this.setActive(false);
+    }
+
 
 }

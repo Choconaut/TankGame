@@ -19,6 +19,10 @@ public class EnemyTankAI {
     }
 
     public void update() {
+        if (!this.enemyTank.isActive()) {
+            return; // Do not update if the enemy tank is inactive
+        }
+
         // Only move if the interval has passed
         if (System.currentTimeMillis() - lastMoveTime >= moveInterval) {
             lastMoveTime = System.currentTimeMillis();

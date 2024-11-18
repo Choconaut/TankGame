@@ -1,18 +1,14 @@
 package com.example.tankgame.tank;
 
-import com.example.tankgame.GameObjectFactory;
 import com.example.tankgame.direction.Down;
-import com.example.tankgame.missile.Missile;
-import com.example.tankgame.missile.MissileManager;
+import com.example.tankgame.gameobject.GameObjectManager;
 
 public class EnemyTank extends Tank {
-    private final MissileManager missileManager;
 
-    public EnemyTank(double x, double y, MissileManager missileManager) {
-        super(x, y);
+    public EnemyTank(double x, double y, GameObjectManager gameObjectManager) {
+        super(x, y, gameObjectManager);
         this.state = new Down(); // Default direction is down
         this.health = 50;
-        this.missileManager = missileManager;
     }
 
     @Override
@@ -20,11 +16,4 @@ public class EnemyTank extends Tank {
 
     }
 
-    public void fire() {
-        Missile missile = GameObjectFactory.createBasicMissile(
-                this.getX() + this.state.getOffsetX(),
-                this.getY() + this.state.getOffsetY(),
-                this.getState());
-        missileManager.addMissile(missile);
-    }
 }
