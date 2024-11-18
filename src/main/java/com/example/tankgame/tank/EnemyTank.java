@@ -1,30 +1,30 @@
 package com.example.tankgame.tank;
 
-import com.example.tankgame.GameObjectFactory;
 import com.example.tankgame.direction.Down;
-import com.example.tankgame.missile.Missile;
-import com.example.tankgame.missile.MissileManager;
+import com.example.tankgame.aidifficulty.AIDifficulty;
+import com.example.tankgame.gameobject.GameObjectManager;
 
 public class EnemyTank extends Tank {
-    private final MissileManager missileManager;
+    private AIDifficulty AIDifficulty;
+    private final Tank targetTank;
 
-    public EnemyTank(double x, double y, MissileManager missileManager) {
-        super(x, y);
+    public EnemyTank(double x, double y, Tank targetTank, AIDifficulty AIDifficulty, GameObjectManager gameObjectManager) {
+        super(x, y, gameObjectManager);
         this.state = new Down(); // Default direction is down
         this.health = 50;
-        this.missileManager = missileManager;
+        this.AIDifficulty = AIDifficulty;
+        this.targetTank = targetTank;
+    }
+
+    public void setAIDifficulty(AIDifficulty AIDifficulty) {
+        this.AIDifficulty = AIDifficulty;
     }
 
     @Override
     public void update() {
-
+        if (isActive() && AIDifficulty != null) {
+            AIDifficulty.execute(this, targetTank);
+        }
     }
 
-    public void fire() {
-        Missile missile = GameObjectFactory.createBasicMissile(
-                this.getX() + this.state.getOffsetX(),
-                this.getY() + this.state.getOffsetY(),
-                this.getState());
-        missileManager.addMissile(missile);
-    }
 }

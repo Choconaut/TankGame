@@ -1,28 +1,29 @@
 package com.example.tankgame;
 
+import com.example.tankgame.aidifficulty.AIDifficulty;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.explosion.Explosion;
+import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.missile.BasicMissile;
 import com.example.tankgame.missile.Missile;
-import com.example.tankgame.missile.MissileManager;
 import com.example.tankgame.powerup.MedPack;
 import com.example.tankgame.tank.EnemyTank;
 import com.example.tankgame.tank.PlayerTank;
-import javafx.scene.Group;
+import com.example.tankgame.tank.Tank;
 
 public class GameObjectFactory {
-    private Group root;
+    private final GameObjectManager gameObjectManager;
 
-    public GameObjectFactory(Group root) {
-        this.root = root;
+    public GameObjectFactory(GameObjectManager gameObjectManager) {
+        this.gameObjectManager = gameObjectManager;
     }
 
-    public PlayerTank createPlayerTank(double x, double y, MissileManager missileManager) {
-        return new PlayerTank(x, y, missileManager);
+    public PlayerTank createPlayerTank(double x, double y) {
+        return new PlayerTank(x, y, gameObjectManager);
     }
 
-    public EnemyTank createEnemyTank(double x, double y, MissileManager missileManager) {
-        return new EnemyTank(x, y, missileManager);
+    public EnemyTank createEnemyTank(double x, double y, Tank tank, AIDifficulty AIDifficulty) {
+        return new EnemyTank(x, y, tank, AIDifficulty,gameObjectManager);
     }
 
     public MedPack createMedPack(double x, double y) {
@@ -38,6 +39,5 @@ public class GameObjectFactory {
     public Explosion createExplosion(double x, double y) {
         return new Explosion(x, y);
     }
-
-
 }
+

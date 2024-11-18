@@ -5,8 +5,6 @@ import com.example.tankgame.tank.Tank;
 
 public abstract class PowerUps extends GameObject {
 
-    private boolean active = true;
-
     public PowerUps(double x, double y) {
         super(x, y);
     }
@@ -15,7 +13,5 @@ public abstract class PowerUps extends GameObject {
 
     public abstract void handleCollision(Tank tank);
 
-    public boolean isActive() { return active; }
-
-    public void setActive(boolean active) { this.active = active; }
+    // abstract method for applying affects
 }

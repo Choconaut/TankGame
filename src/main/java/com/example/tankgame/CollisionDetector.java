@@ -1,22 +1,25 @@
 package com.example.tankgame;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 //Sort and Prune
 public class CollisionDetector {
 
     public void detectCollision(List<GameObject> gameObjects) {
+        gameObjects.removeIf(obj -> !obj.isActive());
+
         //Sort game objects by x position
         gameObjects.sort(Comparator.comparingDouble(GameObject::getX));
 
-        List<GameObject> activeObjects = new ArrayList<>();
+        Deque<GameObject> activeObjects = new ArrayDeque<>();
 
         for (GameObject current : gameObjects) {
             //Remove objects that are not overlapping in the x-axis
-            activeObjects.removeIf(other -> current.getX() > other.getMaxX());
+//            activeObjects.removeIf(other -> current.getX() > other.getMaxX());
+            //Faster because it removes objects in O(1) time vs O(n) time from removeIf
+            while (!activeObjects.isEmpty() && activeObjects.peekFirst().getMaxX() < current.getX()) {
+                activeObjects.pollFirst();
+            }
 
             
             //for all objects in the active list, check for collision in the y-axis

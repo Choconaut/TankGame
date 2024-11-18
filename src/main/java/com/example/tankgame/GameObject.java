@@ -5,6 +5,7 @@ public abstract class GameObject {
     protected double y;
     protected int width;
     protected int height;
+    protected boolean isActive = true;
 
     public GameObject(double x, double y) {
         this.x = x;
@@ -24,6 +25,10 @@ public abstract class GameObject {
     public void setX(double x) { this.x = x; }
 
     public void setY(double y) { this.y = y; }
+
+    public void setActive(boolean active) { this.isActive = active; }
+
+    public boolean isActive() { return this.isActive; }
 
     public abstract String getImagePath();
 
