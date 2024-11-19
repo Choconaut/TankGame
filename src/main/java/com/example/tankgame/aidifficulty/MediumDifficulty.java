@@ -9,7 +9,7 @@ import com.example.tankgame.tank.Tank;
 public class MediumDifficulty implements AIDifficulty {
     private long lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 2000); // Randomize the first move time
     private long lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 1000); // Randomize the first fire time
-    private final int moveInterval = 100 + (int)(Math.random() * 600); // Move every 100-7000ms
+    private final int moveInterval = 100 + (int)(Math.random() * 600); // Move every 100-700ms
     private final int shootInterval = 1500 + (int)(Math.random() * 3000); // Shoot every 1500-4500ms
 
     @Override

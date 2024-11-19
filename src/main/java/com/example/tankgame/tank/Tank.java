@@ -7,7 +7,6 @@ import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.missile.Missile;
 import com.example.tankgame.powerup.MedPack;
 
-
 /**
  * This class represents a tank in the game.
  * It has health, speed, and a state that determines its direction.
