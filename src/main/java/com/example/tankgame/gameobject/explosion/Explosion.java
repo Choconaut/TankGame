@@ -1,4 +1,4 @@
-package com.example.tankgame.explosion;
+package com.example.tankgame.gameobject.explosion;
 
 import com.example.tankgame.gameobject.GameObject;
 

@@ -5,7 +5,7 @@ import com.example.tankgame.direction.Left;
 import com.example.tankgame.direction.Right;
 import com.example.tankgame.direction.Up;
 import javafx.scene.Scene;
-import com.example.tankgame.tank.PlayerTank;
+import com.example.tankgame.gameobject.tank.PlayerTank;
 
 /**
  * TankController class is responsible for controlling the player tank.

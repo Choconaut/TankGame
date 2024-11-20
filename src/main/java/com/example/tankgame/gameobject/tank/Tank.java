@@ -1,11 +1,12 @@
-package com.example.tankgame.tank;
+package com.example.tankgame.gameobject.tank;
 
 import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.direction.Direction;
-import com.example.tankgame.gameobject.GameObjectManager;
-import com.example.tankgame.missile.Missile;
-import com.example.tankgame.powerup.MedPack;
+import com.example.tankgame.gameobject.GameObjectContainer;
+import com.example.tankgame.gameobject.missile.Missile;
+import com.example.tankgame.gameobject.powerup.MedPack;
+import com.example.tankgame.gameobject.tank.team.Team;
 
 /**
  * This class represents a tank in the game.
@@ -20,18 +21,21 @@ import com.example.tankgame.powerup.MedPack;
  * - height: 50, the tank's image height
  */
 public abstract class Tank extends GameObject {
-    protected final GameObjectManager gameObjectManager;
+    protected final GameObjectContainer gameObjectContainer;
     protected int health;
     protected double speed;
     protected Direction state;
+    protected Team team;
 
-    public Tank(double x, double y, GameObjectManager gameObjectManager) {
+    public Tank(double x, double y, Team team, GameObjectContainer gameObjectContainer) {
         super(x, y);
-        this.gameObjectManager = gameObjectManager;
+        this.gameObjectContainer = gameObjectContainer;
+        this.team = team;
         this.health = 100;
         this.speed = 2.5;
         this.width = 50;
         this.height = 50;
+        team.addTank(this);
     }
 
     // Move the tank based on its current state and speed
@@ -61,13 +65,15 @@ public abstract class Tank extends GameObject {
      * The missile's position is offset by the tank's state.
      * Each of the four tank states has a different offset for the missile's position due to
      * the tank's image having a different orientation for each state.
+     *
+     * Perhaps a bad implementation since Tank now knows about every single gameObject in the gameObjectContainer.
       */
     public void fire() {
         Missile missile = GameObjectFactory.createBasicMissile(
                 this.getX() + this.state.getOffsetX(),
                 this.getY() + this.state.getOffsetY(),
                 this.getState());
-        gameObjectManager.addGameObject(missile);
+        gameObjectContainer.addGameObject(missile);
     }
 
     // Get the image path for the tank based on its current state

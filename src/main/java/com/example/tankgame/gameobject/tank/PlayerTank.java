@@ -1,14 +1,15 @@
-package com.example.tankgame.tank;
+package com.example.tankgame.gameobject.tank;
 
-import com.example.tankgame.direction.Up;
-import com.example.tankgame.gameobject.GameObjectManager;
+import com.example.tankgame.direction.Right;
+import com.example.tankgame.gameobject.GameObjectContainer;
+import com.example.tankgame.gameobject.tank.team.Team;
 
 public class PlayerTank extends Tank {
     private long lastMoveTime = System.currentTimeMillis();
 
-    public PlayerTank(double x, double y, GameObjectManager gameObjectManager) {
-        super(x, y, gameObjectManager);
-        this.state = new Up(); // Default direction is up
+    public PlayerTank(double x, double y, Team team, GameObjectContainer gameObjectContainer) {
+        super(x, y, team ,gameObjectContainer);
+        this.state = new Right(); // Default direction is up
     }
 
     @Override

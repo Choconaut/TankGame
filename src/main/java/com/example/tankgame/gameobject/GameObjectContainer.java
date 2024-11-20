@@ -11,22 +11,22 @@ import java.util.Map;
  * This class manages a list of game objects and their corresponding renderers.
  * It handles adding, removing, and updating game objects and their images.
  */
-public class GameObjectManager {
+public class GameObjectContainer {
     private final List<GameObject> gameObjects = new ArrayList<>();
     private final Map<GameObject, GameObjectRenderer> renderers = new HashMap<>();
     private final Group root;
 
     /**
-     * Constructs a GameObjectManager with the specified root group for rendering.
+     * Constructs a GameObjectContainer with the specified root group for rendering.
      *
      * @param root the root group for rendering game objects
      */
-    public GameObjectManager(Group root) {
+    public GameObjectContainer(Group root) {
         this.root = root;
     }
 
     /**
-     * Adds a game object to the manager and its renderer to the root group.
+     * Adds a game object to the container and its renderer to the root group.
      *
      * @param gameObject the game object to add
      */
@@ -71,7 +71,7 @@ public class GameObjectManager {
     }
 
     /**
-     * Returns a list of all game objects managed by this manager.
+     * Returns a list of all game objects managed by this container.
      */
     public List<GameObject> getGameObjects() {
         return new ArrayList<>(gameObjects);

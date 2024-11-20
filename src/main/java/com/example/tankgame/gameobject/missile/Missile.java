@@ -1,8 +1,8 @@
-package com.example.tankgame.missile;
+package com.example.tankgame.gameobject.missile;
 
 import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.direction.Direction;
-import com.example.tankgame.tank.Tank;
+import com.example.tankgame.gameobject.tank.Tank;
 
 /**
  * Missile class that represents a missile object in the game.

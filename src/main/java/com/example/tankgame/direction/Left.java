@@ -1,8 +1,8 @@
 package com.example.tankgame.direction;
 
 import com.example.tankgame.gameobject.GameObject;
-import com.example.tankgame.missile.Missile;
-import com.example.tankgame.tank.Tank;
+import com.example.tankgame.gameobject.missile.Missile;
+import com.example.tankgame.gameobject.tank.Tank;
 
 public class Left implements Direction {
 

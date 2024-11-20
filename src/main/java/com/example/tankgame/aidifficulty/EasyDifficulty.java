@@ -1,65 +1,26 @@
 package com.example.tankgame.aidifficulty;
 
-import com.example.tankgame.direction.Down;
-import com.example.tankgame.direction.Left;
-import com.example.tankgame.direction.Right;
-import com.example.tankgame.direction.Up;
-import com.example.tankgame.tank.Tank;
+import com.example.tankgame.gameobject.tank.Tank;
+import com.example.tankgame.gameobject.tank.team.Team;
 
 /** TODO: angle is not a good way to calculate the direction of the AI tank when
  *  the AI tank is close to the target tank. Perhaps when close, the AI should
  *  strictly focus on one direction, then the other.
+ *
+ *  This difficulty uses the default values and methods from the AIDifficulty class.
  */
 
+public class EasyDifficulty extends AIDifficulty {
 
-public class EasyDifficulty implements AIDifficulty {
-    private long lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 200); // Randomize the first move time
-    private long lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 3000); // Randomize the first fire time
-    private final int moveInterval = 500 + (int)(Math.random() * 500); // Move every 500-1000ms
-    private final int shootInterval = 5000 + (int)(Math.random() * 3000); // Shoot every 5000-8000ms
 
     @Override
-    public void execute(Tank AITank, Tank targetTank) {
-        if (!AITank.isActive()) {
-            return; // Do not execute if the AI tank is inactive
-        }
+    public void execute(Tank AITank, Team targetTanks) {
+        super.execute(AITank, targetTanks);
 
-        // Only move if the interval has passed
-        if (System.currentTimeMillis() - lastMoveTime >= moveInterval) {
-            lastMoveTime = System.currentTimeMillis();
-
-            // Calculate the angle between AI tank and target tank
-            double dx = targetTank.getX() - AITank.getX();
-            double dy = targetTank.getY() - AITank.getY();
-            double angle = Math.toDegrees(Math.atan2(dy, dx));
-
-            // Set the enemy's direction based on the angle
-            if (angle >= -45 && angle < 45) {
-                // Right
-                AITank.setState(new Right());
-            } else if (angle >= 45 && angle < 135) {
-                // Down
-                AITank.setState(new Down());
-            } else if (angle >= -135 && angle < -45) {
-                // Up
-                AITank.setState(new Up());
-            } else {
-                // Left
-                AITank.setState(new Left());
-            }
-
-            AITank.move();
-        }
-
-        // Shoot at the player every shootInterval
-        if (System.currentTimeMillis() - lastFireTime >= shootInterval) {
-            double tolerance = 30.0; // Allow a bit of tolerance for firing
-            if (Math.abs(AITank.getX() - targetTank.getX()) < tolerance ||
-                    Math.abs(AITank.getY() - targetTank.getY()) < tolerance) {
-                if (Math.random() < 0.5) { // 50% chance to fire
-                    lastFireTime = System.currentTimeMillis();
-                    AITank.fire();
-                }
+        for (Tank targetTank : targetTanks.getTeam()) {
+            while (targetTank.isActive()) {
+                chase(AITank, targetTank);
+                fireMissile(AITank, targetTank);
             }
         }
     }

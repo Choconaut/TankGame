@@ -1,4 +1,4 @@
-package com.example.tankgame.missile;
+package com.example.tankgame.gameobject.missile;
 
 import com.example.tankgame.direction.Direction;
 

@@ -1,7 +1,7 @@
-package com.example.tankgame.powerup;
+package com.example.tankgame.gameobject.powerup;
 
 import com.example.tankgame.gameobject.GameObject;
-import com.example.tankgame.tank.Tank;
+import com.example.tankgame.gameobject.tank.Tank;
 
 /**
  * PowerUps is the parent class for all powerups in the game.
