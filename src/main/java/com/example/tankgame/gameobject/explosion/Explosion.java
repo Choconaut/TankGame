@@ -3,6 +3,8 @@ package com.example.tankgame.gameobject.explosion;
 import com.example.tankgame.gameobject.GameObject;
 
 public class Explosion extends GameObject {
+
+
     public Explosion(double x, double y) {
         super(x, y);
         this.x = x;

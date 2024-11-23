@@ -11,8 +11,8 @@ import java.util.Objects;
  * ImageView based on the GameObject's image path and position.
  */
 public class GameObjectRenderer {
-    private GameObject gameObject;
-    private ImageView imageView;
+    private final GameObject gameObject;
+    private final ImageView imageView;
 
     public GameObjectRenderer(GameObject gameObject) {
         this.gameObject = gameObject;
@@ -49,4 +49,7 @@ public class GameObjectRenderer {
     public GameObject getGameObject() {
         return gameObject;
     }
+
+    // animation requires an array of image paths
+
 }

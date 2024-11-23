@@ -65,6 +65,7 @@ public abstract class Missile extends GameObject {
     }
 
     // Handle collisions with other game objects, calls the appropriate method based on the object type
+    // TODO: Collision between 2 missiles simply removes both missiles from the game, should this be removed?
     @Override
     public void handleCollision(GameObject other) {
         if (other instanceof Tank) {

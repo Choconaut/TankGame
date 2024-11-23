@@ -2,7 +2,7 @@ package com.example.tankgame.gameobject.tank;
 
 import com.example.tankgame.aidifficulty.AIDifficulty;
 import com.example.tankgame.direction.Left;
-import com.example.tankgame.gameobject.GameObjectContainer;
+import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.tank.team.Team;
 
 /**
@@ -17,8 +17,8 @@ public class AITank extends Tank {
     private final Team targetTanks;
 
     // targetTank is the tank that the ai will chase
-    public AITank(double x, double y, Team team, Team targetTanks, AIDifficulty AIDifficulty, GameObjectContainer gameObjectContainer) {
-        super(x, y, team ,gameObjectContainer);
+    public AITank(double x, double y, Team team, Team targetTanks, AIDifficulty AIDifficulty, GameObjectManager gameObjectManager) {
+        super(x, y, team , gameObjectManager);
         this.state = new Left(); // Default direction is down
         this.health = 50;
         this.AIDifficulty = AIDifficulty;

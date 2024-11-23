@@ -1,13 +1,11 @@
 package com.example.tankgame;
 
-import com.example.tankgame.aidifficulty.EasyDifficulty;
 import com.example.tankgame.aidifficulty.HardDifficulty;
-import com.example.tankgame.aidifficulty.MediumDifficulty;
 import com.example.tankgame.gameobject.GameObjectFactory;
-import com.example.tankgame.gameobject.GameObjectContainer;
+import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.*;
-import com.example.tankgame.gameobject.tank.team.TeamContainer;
+import com.example.tankgame.gameobject.tank.team.TeamManager;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -24,60 +22,60 @@ public class TankApp extends Application {
 
         Scene scene = new Scene(root, 1200, 800, backgroundColor);
 
-        GameObjectContainer gameObjectContainer = new GameObjectContainer(root);
-        GameObjectFactory gameObjectFactory = new GameObjectFactory(gameObjectContainer);
-        TeamContainer teamContainer = new TeamContainer();
-        teamContainer.createTeam("Allies"); // Own Team
-        teamContainer.createTeam("Axis"); // Enemy Team
+        GameObjectManager gameObjectManager = new GameObjectManager(root);
+        GameObjectFactory gameObjectFactory = new GameObjectFactory(gameObjectManager);
+        TeamManager teamManager = new TeamManager();
+        teamManager.createTeam("Allies"); // Own Team
+        teamManager.createTeam("Axis"); // Enemy Team
 
         //Create GameObjects and add them to the GameObjectManager
 
         // Allies
         PlayerTank playerTank = gameObjectFactory.createPlayerTank(
                 100, 450, // Starting position
-                teamContainer.getTeam("Allies")); // Own Team
-        gameObjectContainer.addGameObject(playerTank); // Add to GameObjectManager
+                teamManager.getTeam("Allies")); // Own Team
+        gameObjectManager.addGameObject(playerTank); // Add to GameObjectManager
 
-        gameObjectContainer.addGameObject(gameObjectFactory.createAITank(
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 150, 200,
-                teamContainer.getTeam("Allies"), // Own Team
-                teamContainer.getTeam("Axis"), // Enemy Team
+                teamManager.getTeam("Allies"), // Own Team
+                teamManager.getTeam("Axis"), // Enemy Team
                 new HardDifficulty()));
 
-        gameObjectContainer.addGameObject(gameObjectFactory.createAITank(
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 120, 700,
-                teamContainer.getTeam("Allies"), // Own Team
-                teamContainer.getTeam("Axis"), // Enemy Team
+                teamManager.getTeam("Allies"), // Own Team
+                teamManager.getTeam("Axis"), // Enemy Team
                 new HardDifficulty()));
 
         // Axis
-        gameObjectContainer.addGameObject(gameObjectFactory.createAITank(
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 900, 50,
-                teamContainer.getTeam("Axis"), // Own Team
-                teamContainer.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"), // Own Team
+                teamManager.getTeam("Allies"), // Enemy Team
                 new HardDifficulty()));
 
-        gameObjectContainer.addGameObject(gameObjectFactory.createAITank(
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 920, 250,
-                teamContainer.getTeam("Axis"), // Own Team
-                teamContainer.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"), // Own Team
+                teamManager.getTeam("Allies"), // Enemy Team
                 new HardDifficulty()));
 
-        gameObjectContainer.addGameObject(gameObjectFactory.createAITank(
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 960, 600,
-                teamContainer.getTeam("Axis"), // Own Team
-                teamContainer.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"), // Own Team
+                teamManager.getTeam("Allies"), // Enemy Team
                 new HardDifficulty()));
 
-        gameObjectContainer.addGameObject(gameObjectFactory.createAITank(
+        gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 950, 700,
-                teamContainer.getTeam("Axis"), // Own Team
-                teamContainer.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"), // Own Team
+                teamManager.getTeam("Allies"), // Enemy Team
                 new HardDifficulty()));
 
 
-        MedPack medPack = gameObjectFactory.createMedPack(100, 100);
-        gameObjectContainer.addGameObject(medPack);
+        MedPack medPack = gameObjectFactory.createMedPack(500, 450);
+        gameObjectManager.addGameObject(medPack);
 
         // Handle Collisions
         CollisionDetector collisionDetector = new CollisionDetector();
@@ -93,20 +91,18 @@ public class TankApp extends Application {
         AnimationTimer gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                if (teamContainer.getTeam("Axis").getTeam().isEmpty()) {
-                    System.out.println("Allies Win!");
-                    stop();
-                } else if (teamContainer.getTeam("Allies").getTeam().isEmpty()) {
-                    System.out.println("Axis Win!");
-                    stop();
-                }
                 if (!playerTank.isActive()) {
                     stop();
                 }
 
-                gameObjectContainer.updateAll();
-                collisionDetector.detectCollision(gameObjectContainer.getGameObjects());
-                teamContainer.updateTeams();
+                gameObjectManager.updateAll();
+                collisionDetector.detectCollision(gameObjectManager.getGameObjects());
+                teamManager.updateTeams();
+
+                if (teamManager.checkTeams()) {
+                    stop();
+                }
+
             }
         };
         gameLoop.start();

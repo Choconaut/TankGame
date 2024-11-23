@@ -43,6 +43,8 @@ public abstract class GameObject {
 
     public boolean isActive() { return this.isActive; }
 
+    public int getWidth() { return width; }
+
     public abstract String getImagePath();
 
     // The intercepts method checks if the object is intercepting another object.

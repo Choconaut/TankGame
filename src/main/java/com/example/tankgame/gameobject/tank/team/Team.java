@@ -33,4 +33,8 @@ public class Team {
     public List<Tank> getTeam() {
         return team;
     }
+
+    public String getName() {
+        return name;
+    }
 }

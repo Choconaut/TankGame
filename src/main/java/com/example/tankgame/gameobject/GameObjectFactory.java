@@ -8,21 +8,20 @@ import com.example.tankgame.gameobject.missile.Missile;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.AITank;
 import com.example.tankgame.gameobject.tank.PlayerTank;
-import com.example.tankgame.gameobject.tank.Tank;
 import com.example.tankgame.gameobject.tank.team.Team;
 
 /**
  * Factory class to create GameObjects
  */
 public class GameObjectFactory {
-    private final GameObjectContainer gameObjectContainer;
+    private final GameObjectManager gameObjectManager;
 
-    public GameObjectFactory(GameObjectContainer gameObjectContainer) {
-        this.gameObjectContainer = gameObjectContainer;
+    public GameObjectFactory(GameObjectManager gameObjectManager) {
+        this.gameObjectManager = gameObjectManager;
     }
 
     public PlayerTank createPlayerTank(double x, double y, Team team) {
-        return new PlayerTank(x, y, team, gameObjectContainer);
+        return new PlayerTank(x, y, team, gameObjectManager);
     }
 
     /**
@@ -34,7 +33,7 @@ public class GameObjectFactory {
      * @return a new AITank object
      */
     public AITank createAITank(double x, double y, Team team, Team targetTanks, AIDifficulty AIDifficulty) {
-        return new AITank(x, y, team ,targetTanks, AIDifficulty, gameObjectContainer);
+        return new AITank(x, y, team ,targetTanks, AIDifficulty, gameObjectManager);
     }
 
     public MedPack createMedPack(double x, double y) {

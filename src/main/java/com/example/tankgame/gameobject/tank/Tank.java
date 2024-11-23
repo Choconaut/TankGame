@@ -3,7 +3,7 @@ package com.example.tankgame.gameobject.tank;
 import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.direction.Direction;
-import com.example.tankgame.gameobject.GameObjectContainer;
+import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.missile.Missile;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.team.Team;
@@ -21,15 +21,15 @@ import com.example.tankgame.gameobject.tank.team.Team;
  * - height: 50, the tank's image height
  */
 public abstract class Tank extends GameObject {
-    protected final GameObjectContainer gameObjectContainer;
+    protected final GameObjectManager gameObjectManager;
     protected int health;
     protected double speed;
     protected Direction state;
     protected Team team;
 
-    public Tank(double x, double y, Team team, GameObjectContainer gameObjectContainer) {
+    public Tank(double x, double y, Team team, GameObjectManager gameObjectManager) {
         super(x, y);
-        this.gameObjectContainer = gameObjectContainer;
+        this.gameObjectManager = gameObjectManager;
         this.team = team;
         this.health = 100;
         this.speed = 2.5;
@@ -73,7 +73,7 @@ public abstract class Tank extends GameObject {
                 this.getX() + this.state.getOffsetX(),
                 this.getY() + this.state.getOffsetY(),
                 this.getState());
-        gameObjectContainer.addGameObject(missile);
+        gameObjectManager.addGameObject(missile);
     }
 
     // Get the image path for the tank based on its current state
@@ -109,6 +109,7 @@ public abstract class Tank extends GameObject {
     // Handle a collision with a med pack, applies a health boost to the tank
     public void collideWithMedPack(MedPack medPack) {
         medPack.applyEffect(this);
+        medPack.setActive(false);
     }
 
 }

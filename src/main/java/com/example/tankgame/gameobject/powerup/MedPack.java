@@ -5,11 +5,13 @@ import com.example.tankgame.gameobject.tank.Tank;
 public class MedPack extends PowerUps {
     public MedPack(double x, double y) {
         super(x, y);
+        width = 38;
+        height = 40;
     }
 
     @Override
     public String getImagePath() {
-        return "/com/example/tankgame/images/MedPack.gif";
+        return "/com/example/tankgame/images/BiggerMedPack.gif";
     }
 
     @Override
