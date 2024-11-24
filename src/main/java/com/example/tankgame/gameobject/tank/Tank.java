@@ -4,6 +4,7 @@ import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.gameobject.GameObjectManager;
+import com.example.tankgame.gameobject.explosion.Explosion;
 import com.example.tankgame.gameobject.missile.Missile;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.team.Team;
@@ -62,6 +63,7 @@ public abstract class Tank extends GameObject {
 
     /**
      * The default firing implementation for tanks, creates a basic missile at the tank's position.
+     * Then adds the missile to the gameObjectManager.
      * The missile's position is offset by the tank's state.
      * Each of the four tank states has a different offset for the missile's position due to
      * the tank's image having a different orientation for each state.
@@ -69,11 +71,11 @@ public abstract class Tank extends GameObject {
      * Perhaps a bad implementation since Tank now knows about every single gameObject in the gameObjectContainer.
       */
     public void fire() {
-        Missile missile = GameObjectFactory.createBasicMissile(
+        gameObjectManager.addGameObject(GameObjectFactory.createBasicMissile(
                 this.getX() + this.state.getOffsetX(),
                 this.getY() + this.state.getOffsetY(),
-                this.getState());
-        gameObjectManager.addGameObject(missile);
+                this.getState()));
+
     }
 
     // Get the image path for the tank based on its current state
@@ -103,6 +105,7 @@ public abstract class Tank extends GameObject {
 
         if (this.getHealth() <= 0) {
             this.setActive(false); // Mark tank as inactive
+            gameObjectManager.addGameObject(GameObjectFactory.createExplosion(this.getX(), this.getY()));
         }
     }
 

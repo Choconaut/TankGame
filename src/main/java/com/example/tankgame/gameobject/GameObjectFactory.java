@@ -55,7 +55,7 @@ public class GameObjectFactory {
         return missile;
     }
 
-    public Explosion createExplosion(double x, double y) {
+    public static Explosion createExplosion(double x, double y) {
         return new Explosion(x, y);
     }
 }

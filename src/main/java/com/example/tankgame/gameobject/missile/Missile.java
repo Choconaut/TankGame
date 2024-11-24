@@ -2,6 +2,7 @@ package com.example.tankgame.gameobject.missile;
 
 import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.direction.Direction;
+import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.gameobject.tank.Tank;
 
 /**
