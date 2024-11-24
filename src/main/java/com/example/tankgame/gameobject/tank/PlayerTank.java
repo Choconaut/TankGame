@@ -10,6 +10,7 @@ public class PlayerTank extends Tank {
     public PlayerTank(double x, double y, Team team, GameObjectManager gameObjectManager) {
         super(x, y, team , gameObjectManager);
         this.state = new Right(); // Default direction is up
+        this.speed = 1;
     }
 
     @Override
@@ -22,7 +23,7 @@ public class PlayerTank extends Tank {
      * uses the fire method from the Tank class
      */
     public void fire() {
-        int shootInterval = 1000;
+        int shootInterval = 2000;
         if (System.currentTimeMillis() - lastMoveTime >= shootInterval) {
             lastMoveTime = System.currentTimeMillis();
             super.fire();
