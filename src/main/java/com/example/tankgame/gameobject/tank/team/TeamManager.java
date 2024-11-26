@@ -23,7 +23,7 @@ public class TeamManager {
 
     // For each team, update the team
     public void updateTeams() {
-        checkTeams();
+        checkLastTeamStanding();
 
         for (Team team : teams.values()) {
             team.update();
@@ -36,7 +36,7 @@ public class TeamManager {
     }
 
     // Check if there is only one team left
-    public Boolean checkTeams (){
+    public Boolean checkLastTeamStanding(){
         if (teams.size() == 1) {
             System.out.println("The winner is: " + teams.values().iterator().next().getName());
             return true;

@@ -3,7 +3,6 @@ package com.example.tankgame;
 import com.example.tankgame.aidifficulty.HardDifficulty;
 import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.gameobject.GameObjectManager;
-import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.*;
 import com.example.tankgame.gameobject.tank.team.TeamManager;
 import javafx.animation.AnimationTimer;
@@ -73,9 +72,12 @@ public class TankApp extends Application {
                 teamManager.getTeam("Allies"), // Enemy Team
                 new HardDifficulty()));
 
+        // PowerUps
+        gameObjectManager.addGameObject(gameObjectFactory.createMedPack(500, 450));
 
-        MedPack medPack = gameObjectFactory.createMedPack(500, 450);
-        gameObjectManager.addGameObject(medPack);
+        // Walls
+        gameObjectManager.addGameObject(gameObjectFactory.createSquareWall(300, 300));
+
 
         // Handle Collisions
         CollisionDetector collisionDetector = new CollisionDetector();
@@ -99,7 +101,7 @@ public class TankApp extends Application {
                 collisionDetector.detectCollision(gameObjectManager.getGameObjects());
                 teamManager.updateTeams();
 
-                if (teamManager.checkTeams()) {
+                if (teamManager.checkLastTeamStanding()) {
                     stop();
                 }
 

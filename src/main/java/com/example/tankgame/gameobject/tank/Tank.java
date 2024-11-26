@@ -6,6 +6,7 @@ import com.example.tankgame.direction.Direction;
 import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.explosion.Explosion;
 import com.example.tankgame.gameobject.missile.Missile;
+import com.example.tankgame.gameobject.obstacle.Wall;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.team.Team;
 
@@ -27,6 +28,8 @@ public abstract class Tank extends GameObject {
     protected double speed;
     protected Direction state;
     protected Team team;
+    protected double prevX;
+    protected double prevY;
 
     public Tank(double x, double y, Team team, GameObjectManager gameObjectManager) {
         super(x, y);
@@ -41,6 +44,10 @@ public abstract class Tank extends GameObject {
 
     // Move the tank based on its current state and speed
     public void move() {
+        // Save the previous position in case of collision
+        prevX = this.x;
+        prevY = this.y;
+
         state.move(this, speed);
     }
 
@@ -87,7 +94,16 @@ public abstract class Tank extends GameObject {
     // Handle collisions with other game objects, calls the appropriate method based on the object type
     @Override
     public void handleCollision(GameObject other) {
-        if (other instanceof Missile) {
+        if (other instanceof Wall) {
+            // Revert to previous position to prevent moving through the wall
+            this.x = prevX;
+            this.y = prevY;
+        } else if (other instanceof Tank) {
+            // Revert to previous position to prevent moving through the tank
+            this.x = prevX;
+            this.y = prevY;
+
+        } else if (other instanceof Missile) {
             this.collideWithMissile((Missile) other);
         } else if (other instanceof MedPack) {
             this.collideWithMedPack((MedPack) other);
