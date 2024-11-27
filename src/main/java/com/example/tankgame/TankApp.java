@@ -9,17 +9,31 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class TankApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
         Group root = new Group();
-        Color backgroundColor = Color.rgb(139, 99, 69);
 
-        Scene scene = new Scene(root, 1200, 800, backgroundColor);
+        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/tankgame/images/map.png")));
+
+        // Create an ImageView with the background image
+        ImageView backgroundImageView = new ImageView(backgroundImage);
+
+        // Set the size of the ImageView to match the scene size
+        backgroundImageView.setFitWidth(1200);
+        backgroundImageView.setFitHeight(800);
+        backgroundImageView.setPreserveRatio(false); // Stretch to fill if necessary
+
+        root.getChildren().add(backgroundImageView);
+
+        Scene scene = new Scene(root, 1200, 800);
 
         // Update GameConstants with actual scene size
         GameConstants.gameWidth = scene.getWidth();
