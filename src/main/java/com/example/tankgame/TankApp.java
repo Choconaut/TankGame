@@ -97,6 +97,7 @@ public class TankApp extends Application {
 
         // Walls
         gameObjectManager.addGameObject(gameObjectFactory.createSquareWall(300, 300));
+        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(300, 350));
 
 
         // Handle Collisions

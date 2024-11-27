@@ -5,6 +5,7 @@ import com.example.tankgame.direction.Direction;
 import com.example.tankgame.gameobject.explosion.Explosion;
 import com.example.tankgame.gameobject.missile.BasicMissile;
 import com.example.tankgame.gameobject.missile.Missile;
+import com.example.tankgame.gameobject.obstacle.InvisibleWall;
 import com.example.tankgame.gameobject.obstacle.SquareWall;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.AITank;
@@ -61,5 +62,7 @@ public class GameObjectFactory {
     }
 
     public SquareWall createSquareWall(double x, double y) { return new SquareWall(x, y); }
+
+    public InvisibleWall createInvisibleWall(double x, double y) { return new InvisibleWall(x, y); }
 }
 
