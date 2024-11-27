@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -20,29 +21,32 @@ public class TankApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Group root = new Group();
+        BorderPane root = new BorderPane();
 
+        // Create the game area as a Group
+        Group gameArea = new Group();
+
+        // Load and set the background image
         Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/tankgame/images/map1.png")));
-
-        // Create an ImageView with the background image
         ImageView backgroundImageView = new ImageView(backgroundImage);
-
-        // Set the size of the ImageView to match the scene size
-        backgroundImageView.setFitWidth(1200);
+        backgroundImageView.setFitWidth(1200); // Adjusted width for game area
         backgroundImageView.setFitHeight(800);
-        backgroundImageView.setPreserveRatio(false); // Stretch to fill if necessary
+        backgroundImageView.setPreserveRatio(false);
 
-        root.getChildren().add(backgroundImageView);
+        gameArea.getChildren().add(backgroundImageView);
 
-        Scene scene = new Scene(root, 1200, 800);
+        // Place the game area in the center of the BorderPane
+        root.setCenter(gameArea);
+
+        Scene scene = new Scene(root, 1400, 800);
 
         // Update GameConstants with actual scene size
-        GameConstants.gameWidth = scene.getWidth();
+        GameConstants.gameWidth = 1200;
         GameConstants.gameHeight = scene.getHeight();
 
         // Create GameObjectManager, GameObjectFactory, TeamManager
 
-        GameObjectManager gameObjectManager = new GameObjectManager(root);
+        GameObjectManager gameObjectManager = new GameObjectManager(gameArea);
         GameObjectFactory gameObjectFactory = new GameObjectFactory(gameObjectManager);
         TeamManager teamManager = new TeamManager();
         teamManager.createTeam("Allies"); // Own Team
@@ -60,13 +64,13 @@ public class TankApp extends Application {
                 250, 200,
                 teamManager.getTeam("Allies"), // Own Team
                 teamManager.getTeam("Axis"), // Enemy Team
-                new MediumDifficulty()));
+                new HardDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 220, 450,
                 teamManager.getTeam("Allies"),
                 teamManager.getTeam("Axis"),
-                new HardDifficulty()));
+                new MediumDifficulty()));
 
         // Axis Team
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
@@ -113,6 +117,10 @@ public class TankApp extends Application {
         // Wall for downward path
         gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(685, 613, 5, 175));
 
+        // Create the sidebar and pass the necessary references
+        Sidebar sidebar = new Sidebar(playerTank, teamManager.getTeam("Allies"), teamManager.getTeam("Axis"));
+        root.setRight(sidebar);
+
         // Handle Collisions
         CollisionDetector collisionDetector = new CollisionDetector();
 
@@ -135,10 +143,12 @@ public class TankApp extends Application {
                 collisionDetector.detectCollision(gameObjectManager.getGameObjects());
                 teamManager.updateTeams();
 
+                teamManager.getTeam("Allies").updateActiveTankCount();
+                teamManager.getTeam("Axis").updateActiveTankCount();
+
                 if (teamManager.checkLastTeamStanding()) {
                     stop();
                 }
-
             }
         };
         gameLoop.start();
