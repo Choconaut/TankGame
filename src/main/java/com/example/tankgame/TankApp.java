@@ -21,6 +21,10 @@ public class TankApp extends Application {
 
         Scene scene = new Scene(root, 1200, 800, backgroundColor);
 
+        // Update GameConstants with actual scene size
+        GameConstants.gameWidth = scene.getWidth();
+        GameConstants.gameHeight = scene.getHeight();
+
         GameObjectManager gameObjectManager = new GameObjectManager(root);
         GameObjectFactory gameObjectFactory = new GameObjectFactory(gameObjectManager);
         TeamManager teamManager = new TeamManager();
@@ -29,7 +33,7 @@ public class TankApp extends Application {
 
         //Create GameObjects and add them to the GameObjectManager
 
-        // Allies
+        // Allies Team
         PlayerTank playerTank = gameObjectFactory.createPlayerTank(
                 100, 450, // Starting position
                 teamManager.getTeam("Allies")); // Own Team
@@ -47,7 +51,7 @@ public class TankApp extends Application {
                 teamManager.getTeam("Axis"), // Enemy Team
                 new HardDifficulty()));
 
-        // Axis
+        // Axis Team
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 900, 50,
                 teamManager.getTeam("Axis"), // Own Team

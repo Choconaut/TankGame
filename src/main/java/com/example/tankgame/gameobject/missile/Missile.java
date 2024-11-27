@@ -1,8 +1,8 @@
 package com.example.tankgame.gameobject.missile;
 
+import com.example.tankgame.GameConstants;
 import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.direction.Direction;
-import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.gameobject.tank.Tank;
 
 /**
@@ -38,6 +38,12 @@ public abstract class Missile extends GameObject {
     @Override
     public void update() {
         this.move();
+
+        // Remove if the missile is out of bounds
+        if (this.x < 0 || this.x > GameConstants.gameWidth ||
+                this.y < 0 || this.y > GameConstants.gameHeight) {
+            this.setActive(false);
+        }
         // Other missile-specific logic
     }
 
@@ -66,7 +72,6 @@ public abstract class Missile extends GameObject {
     }
 
     // Handle collisions with other game objects, calls the appropriate method based on the object type
-    // TODO: Collision between 2 missiles simply removes both missiles from the game, should this be removed?
     @Override
     public void handleCollision(GameObject other) {
         if (other instanceof Tank) {

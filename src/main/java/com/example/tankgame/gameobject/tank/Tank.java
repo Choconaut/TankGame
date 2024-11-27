@@ -1,10 +1,10 @@
 package com.example.tankgame.gameobject.tank;
 
+import com.example.tankgame.GameConstants;
 import com.example.tankgame.gameobject.GameObject;
 import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.gameobject.GameObjectManager;
-import com.example.tankgame.gameobject.explosion.Explosion;
 import com.example.tankgame.gameobject.missile.Missile;
 import com.example.tankgame.gameobject.obstacle.Wall;
 import com.example.tankgame.gameobject.powerup.MedPack;
@@ -49,6 +49,22 @@ public abstract class Tank extends GameObject {
         prevY = this.y;
 
         state.move(this, speed);
+
+        // Prevent the tank from moving outside the game area
+        double maxWidth = GameConstants.gameWidth - this.width;
+        double maxHeight = GameConstants.gameHeight - this.height;
+
+        if (this.x < 0) {
+            this.x = 0;
+        } else if (this.x > maxWidth) {
+            this.x = maxWidth;
+        }
+
+        if (this.y < 0) {
+            this.y = 0;
+        } else if (this.y > maxHeight) {
+            this.y = maxHeight;
+        }
     }
 
     // Set the tank's state to the specified direction
@@ -76,7 +92,7 @@ public abstract class Tank extends GameObject {
      * the tank's image having a different orientation for each state.
      *
      * Perhaps a bad implementation since Tank now knows about every single gameObject in the gameObjectContainer.
-      */
+     */
     public void fire() {
         gameObjectManager.addGameObject(GameObjectFactory.createBasicMissile(
                 this.getX() + this.state.getOffsetX(),
@@ -114,7 +130,7 @@ public abstract class Tank extends GameObject {
      * Handle a collision with a missile, reduces the tank's health by the missile's damage
      * and marks the tank as inactive if its health is less than or equal to 0. When
      * a tank is marked as inactive, it will be removed from the game.
-      */
+     */
     public void collideWithMissile(Missile missile) {
         this.setHealth(this.getHealth() - missile.getDamage());
         System.out.println("Tank hit! Health: " + this.getHealth());
