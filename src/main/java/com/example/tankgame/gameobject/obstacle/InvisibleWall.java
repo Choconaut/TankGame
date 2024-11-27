@@ -1,10 +1,10 @@
 package com.example.tankgame.gameobject.obstacle;
 
 /**
- * This wall is a 50x50 wall that can be placed on the map. It's main purpose is to allow
- * for greater map customization.
+ * The InvisibleWall class that represents an invisible wall object in the game.
+ * This wall can have its width and height set to any value.
  */
-public class InvisibleWall extends Wall {
+public class InvisibleWall extends Obstacle {
     public InvisibleWall(double x, double y, int width, int height) {
         super(x, y);
         this.height = height;

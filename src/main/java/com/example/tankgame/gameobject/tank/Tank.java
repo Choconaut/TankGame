@@ -6,7 +6,7 @@ import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.direction.Direction;
 import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.missile.Missile;
-import com.example.tankgame.gameobject.obstacle.Wall;
+import com.example.tankgame.gameobject.obstacle.Obstacle;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.team.Team;
 
@@ -115,7 +115,7 @@ public abstract class Tank extends GameObject {
     // Handle collisions with other game objects, calls the appropriate method based on the object type
     @Override
     public void handleCollision(GameObject other) {
-        if (other instanceof Wall) {
+        if (other instanceof Obstacle) {
             // Revert to previous position to prevent moving through the wall
             this.x = prevX;
             this.y = prevY;

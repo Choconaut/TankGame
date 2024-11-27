@@ -1,6 +1,6 @@
 package com.example.tankgame.gameobject.obstacle;
 
-public class Tree extends Wall {
+public class Tree extends Obstacle {
     public Tree(double x, double y) {
         super(x + 103, y + 153);
         this.height = 9;
