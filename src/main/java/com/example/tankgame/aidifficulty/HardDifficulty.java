@@ -12,7 +12,7 @@ public class HardDifficulty extends AIDifficulty {
         lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 2000); // Random initial move time
         lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 1000); // Random initial fire time
         moveInterval = 100 + (int)(Math.random() * 300); // Move every 100-400ms
-        shootInterval = 1500 + (int)(Math.random() * 3000); // Shoot every 1500-4500ms
+        shootInterval = 1500 + (int)(Math.random() * 2000); // Shoot every 1500-3500ms
     }
 
     @Override
@@ -37,23 +37,44 @@ public class HardDifficulty extends AIDifficulty {
         if (System.currentTimeMillis() - lastMoveTime >= moveInterval) {
             lastMoveTime = System.currentTimeMillis();
 
-            // Decide whether to move horizontally or vertically
+            // Calculate deltas
             double deltaX = targetTank.getX() - AITank.getX();
             double deltaY = targetTank.getY() - AITank.getY();
 
-            if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                // Move horizontally
-                if (deltaX > 0) {
-                    AITank.setState(new Right());
-                } else {
-                    AITank.setState(new Left());
+            // Prioritize vertical (Y-axis) alignment over horizontal (X-axis)
+            boolean prioritizeVertical = Math.abs(deltaY) > 75;
+
+            if (prioritizeVertical) {
+                // Attempt to maintain a 75px distance on the vertical axis
+                if (Math.abs(deltaY) > 75) {
+                    if (deltaY > 0) {
+                        AITank.setState(new Down());
+                    } else {
+                        AITank.setState(new Up());
+                    }
+                } else if (Math.abs(deltaX) > 5) { // Tolerance to prevent jitter
+                    // Move horizontally to align closer
+                    if (deltaX > 0) {
+                        AITank.setState(new Right());
+                    } else {
+                        AITank.setState(new Left());
+                    }
                 }
             } else {
-                // Move vertically
-                if (deltaY > 0) {
-                    AITank.setState(new Down());
-                } else {
-                    AITank.setState(new Up());
+                // Attempt to maintain a 75px distance on the horizontal axis
+                if (Math.abs(deltaX) > 75) {
+                    if (deltaX > 0) {
+                        AITank.setState(new Right());
+                    } else {
+                        AITank.setState(new Left());
+                    }
+                } else if (Math.abs(deltaY) > 5) { // Tolerance to prevent jitter
+                    // Move vertically to align closer
+                    if (deltaY > 0) {
+                        AITank.setState(new Down());
+                    } else {
+                        AITank.setState(new Up());
+                    }
                 }
             }
             AITank.move();
@@ -95,6 +116,7 @@ public class HardDifficulty extends AIDifficulty {
         }
     }
 
+    // Fires a missile from the AI tank
     private Tank selectClosestTarget(Tank AITank, Team targetTeam) {
         List<Tank> targetTanks = targetTeam.getTeam();
         if (targetTanks.isEmpty()) {
@@ -116,6 +138,7 @@ public class HardDifficulty extends AIDifficulty {
         return closestTank;
     }
 
+    // Calculate the distance between two tanks, used to determine the closest target
     private double calculateDistance(Tank AITank, Tank targetTank) {
         double deltaX = targetTank.getX() - AITank.getX();
         double deltaY = targetTank.getY() - AITank.getY();

@@ -85,6 +85,10 @@ public abstract class Tank extends GameObject {
 
     public void setHealth(int health) { this.health = health; }
 
+    public GameObjectManager getGameObjectManager() {
+        return gameObjectManager;
+    }
+
     /**
      * The default firing implementation for tanks, creates a basic missile at the tank's position.
      * Then adds the missile to the gameObjectManager.

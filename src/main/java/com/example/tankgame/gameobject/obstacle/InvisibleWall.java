@@ -5,10 +5,10 @@ package com.example.tankgame.gameobject.obstacle;
  * for greater map customization.
  */
 public class InvisibleWall extends Wall {
-    public InvisibleWall(double x, double y) {
+    public InvisibleWall(double x, double y, int width, int height) {
         super(x, y);
-        this.height = 50;
-        this.width = 50;
+        this.height = height;
+        this.width = width;
     }
 
     @Override

@@ -1,31 +1,21 @@
 package com.example.tankgame.aidifficulty;
 
+import com.example.tankgame.direction.*;
 import com.example.tankgame.gameobject.tank.Tank;
 import com.example.tankgame.gameobject.tank.team.Team;
+import java.util.List;
 
-/** TODO: angle is not a good way to calculate the direction of the AI tank when
- *  the AI tank is close to the target tank. Perhaps when close, the AI should
- *  strictly focus on one direction, then the other.
+
+/**
+ * Easy difficulty for AI tanks
  *
- *  This difficulty uses the default values and methods from the AIDifficulty class.
+ * <p>AI tanks with easy difficulty will move and shoot at a slower pace compared to medium and hard difficulties.
  */
-
 public class EasyDifficulty extends AIDifficulty {
-
-
-    @Override
-    public void execute(Tank AITank, Team targetTanks) {
-        super.execute(AITank, targetTanks);
-
-        for (Tank targetTank : targetTanks.getTeam()) {
-            while (targetTank.isActive()) {
-                fireMissile(AITank, targetTank);
-            }
-        }
-    }
-
-    @Override
-    public void fireMissile(Tank AITank, Tank targetTank) {
-
+    public EasyDifficulty() {
+        lastMoveTime = System.currentTimeMillis() + (int)(Math.random() * 2000); // Random initial move time
+        lastFireTime = System.currentTimeMillis() + (int)(Math.random() * 1000); // Random initial fire time
+        moveInterval = 500 + (int)(Math.random() * 700); // Move every 500-1200ms
+        shootInterval = 2500 + (int)(Math.random() * 5000); // Shoot every 2500-7500ms
     }
 }

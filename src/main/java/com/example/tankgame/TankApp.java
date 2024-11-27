@@ -1,6 +1,7 @@
 package com.example.tankgame;
 
 import com.example.tankgame.aidifficulty.HardDifficulty;
+import com.example.tankgame.aidifficulty.MediumDifficulty;
 import com.example.tankgame.gameobject.GameObjectFactory;
 import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.tank.*;
@@ -21,7 +22,7 @@ public class TankApp extends Application {
     public void start(Stage primaryStage) {
         Group root = new Group();
 
-        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/tankgame/images/map.png")));
+        Image backgroundImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/tankgame/images/map1.png")));
 
         // Create an ImageView with the background image
         ImageView backgroundImageView = new ImageView(backgroundImage);
@@ -51,28 +52,28 @@ public class TankApp extends Application {
 
         // Allies Team
         PlayerTank playerTank = gameObjectFactory.createPlayerTank(
-                100, 450, // Starting position
+                240, 700, // Starting position
                 teamManager.getTeam("Allies")); // Own Team
         gameObjectManager.addGameObject(playerTank); // Add to GameObjectManager
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
-                150, 200,
+                250, 200,
                 teamManager.getTeam("Allies"), // Own Team
                 teamManager.getTeam("Axis"), // Enemy Team
-                new HardDifficulty()));
+                new MediumDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
-                120, 700,
+                220, 450,
                 teamManager.getTeam("Allies"),
                 teamManager.getTeam("Axis"),
                 new HardDifficulty()));
 
         // Axis Team
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
-                900, 50,
+                850, 100,
                 teamManager.getTeam("Axis"),
                 teamManager.getTeam("Allies"),
-                new HardDifficulty()));
+                new MediumDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 920, 250,
@@ -81,24 +82,36 @@ public class TankApp extends Application {
                 new HardDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
-                960, 600,
+                1130, 350,
                 teamManager.getTeam("Axis"),
                 teamManager.getTeam("Allies"),
-                new HardDifficulty()));
+                new MediumDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
-                950, 700,
+                1050, 450,
                 teamManager.getTeam("Axis"),
                 teamManager.getTeam("Allies"),
                 new HardDifficulty()));
 
         // PowerUps
-        gameObjectManager.addGameObject(gameObjectFactory.createMedPack(500, 450));
+        gameObjectManager.addGameObject(gameObjectFactory.createMedPack(1103, 660));
 
         // Walls
-        gameObjectManager.addGameObject(gameObjectFactory.createSquareWall(300, 300));
-        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(300, 350));
 
+        // Wall for left-side of stairway
+        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(0, 525, 315, 50));
+
+        // Wall for right-side of stairway
+        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(380, 525, 185, 50));
+
+        // Wall for Corner 1 of downward path
+        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(570, 563, 50, 50));
+
+        // Wall for Corner 2 of downward path
+        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(630, 613, 50, 50));
+
+        // Wall for downward path
+        gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(685, 613, 5, 175));
 
         // Handle Collisions
         CollisionDetector collisionDetector = new CollisionDetector();
