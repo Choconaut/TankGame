@@ -11,5 +11,4 @@ public interface Direction {
     int getOffsetX();
 
     int getOffsetY();
-
 }

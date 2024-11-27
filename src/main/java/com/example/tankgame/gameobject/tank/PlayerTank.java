@@ -5,7 +5,7 @@ import com.example.tankgame.gameobject.GameObjectManager;
 import com.example.tankgame.gameobject.tank.team.Team;
 
 public class PlayerTank extends Tank {
-    private long lastMoveTime = System.currentTimeMillis();
+    private long lastFireTime = System.currentTimeMillis();
 
     public PlayerTank(double x, double y, Team team, GameObjectManager gameObjectManager) {
         super(x, y, team , gameObjectManager);
@@ -24,8 +24,8 @@ public class PlayerTank extends Tank {
      */
     public void fire() {
         int shootInterval = 2000;
-        if (System.currentTimeMillis() - lastMoveTime >= shootInterval) {
-            lastMoveTime = System.currentTimeMillis();
+        if (System.currentTimeMillis() - lastFireTime >= shootInterval) {
+            lastFireTime = System.currentTimeMillis();
             super.fire();
         }
     }

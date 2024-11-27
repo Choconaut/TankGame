@@ -50,10 +50,11 @@ public abstract class Tank extends GameObject {
 
         state.move(this, speed);
 
-        // Prevent the tank from moving outside the game area
+        // The width and height of the game area
         double maxWidth = GameConstants.gameWidth - this.width;
         double maxHeight = GameConstants.gameHeight - this.height;
 
+        // Prevent the tank from moving outside the game area
         if (this.x < 0) {
             this.x = 0;
         } else if (this.x > maxWidth) {

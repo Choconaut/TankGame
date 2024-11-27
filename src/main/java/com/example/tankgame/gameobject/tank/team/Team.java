@@ -26,15 +26,9 @@ public class Team {
     }
 
     // if the tank is not active, remove it from the team
-    public void update() {
-        team.removeIf(tank -> !tank.isActive());
-    }
+    public void update() { team.removeIf(tank -> !tank.isActive()); }
 
-    public List<Tank> getTeam() {
-        return team;
-    }
+    public List<Tank> getTeam() { return team; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 }

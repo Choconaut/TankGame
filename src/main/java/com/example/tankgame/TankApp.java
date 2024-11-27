@@ -25,6 +25,8 @@ public class TankApp extends Application {
         GameConstants.gameWidth = scene.getWidth();
         GameConstants.gameHeight = scene.getHeight();
 
+        // Create GameObjectManager, GameObjectFactory, TeamManager
+
         GameObjectManager gameObjectManager = new GameObjectManager(root);
         GameObjectFactory gameObjectFactory = new GameObjectFactory(gameObjectManager);
         TeamManager teamManager = new TeamManager();
@@ -47,33 +49,33 @@ public class TankApp extends Application {
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 120, 700,
-                teamManager.getTeam("Allies"), // Own Team
-                teamManager.getTeam("Axis"), // Enemy Team
+                teamManager.getTeam("Allies"),
+                teamManager.getTeam("Axis"),
                 new HardDifficulty()));
 
         // Axis Team
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 900, 50,
-                teamManager.getTeam("Axis"), // Own Team
-                teamManager.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"),
+                teamManager.getTeam("Allies"),
                 new HardDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 920, 250,
-                teamManager.getTeam("Axis"), // Own Team
-                teamManager.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"),
+                teamManager.getTeam("Allies"),
                 new HardDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 960, 600,
-                teamManager.getTeam("Axis"), // Own Team
-                teamManager.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"),
+                teamManager.getTeam("Allies"),
                 new HardDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
                 950, 700,
-                teamManager.getTeam("Axis"), // Own Team
-                teamManager.getTeam("Allies"), // Enemy Team
+                teamManager.getTeam("Axis"),
+                teamManager.getTeam("Allies"),
                 new HardDifficulty()));
 
         // PowerUps

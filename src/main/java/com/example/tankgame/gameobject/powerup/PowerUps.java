@@ -16,5 +16,6 @@ public abstract class PowerUps extends GameObject {
 
     public abstract void handleCollision(Tank tank);
 
+    // Apply the effect of the powerup to the tank
     public abstract void applyEffect(Tank tank);
 }

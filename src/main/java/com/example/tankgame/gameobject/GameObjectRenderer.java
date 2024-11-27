@@ -4,6 +4,8 @@ import com.example.tankgame.gameobject.explosion.Explosion;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class GameObjectRenderer {
     private final GameObject gameObject;
     private final ImageView imageView;
@@ -21,14 +23,13 @@ public class GameObjectRenderer {
     }
 
     private void updateImage() {
-        if (gameObject instanceof Explosion) {
-            Explosion explosion = (Explosion) gameObject;
+        if (gameObject instanceof Explosion explosion) {
             Image frame = explosion.getCurrentFrame();
             imageView.setImage(frame);
         } else {
             String imagePath = gameObject.getImagePath();
             if (imagePath != null) {
-                Image image = new Image(getClass().getResourceAsStream(imagePath));
+                Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
                 imageView.setImage(image);
             }
         }

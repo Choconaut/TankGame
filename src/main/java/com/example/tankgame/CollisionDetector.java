@@ -4,7 +4,16 @@ import com.example.tankgame.gameobject.GameObject;
 
 import java.util.*;
 
-//Sort and Prune
+/**
+ * This class is responsible for detecting collisions between game objects.
+ * It uses a sweep and prune algorithm to detect collisions between game objects.
+ * The algorithm works by sorting the game objects by their x position and then adding objects
+ * that are overlapping in the x-axis to a list. Then, for each object in the list, it checks if
+ * the object is overlapping in the y-axis. If it is, it handles the collision.
+ *
+ * This algorithm has a time complexity of O(n^2) in the worst case, but it is faster than the naive
+ * collision detection algorithm because it reduces the number of comparisons needed to detect collisions.
+ */
 public class CollisionDetector {
 
     public void detectCollision(List<GameObject> gameObjects) {

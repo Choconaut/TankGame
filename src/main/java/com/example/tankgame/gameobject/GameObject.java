@@ -7,10 +7,15 @@ package com.example.tankgame.gameobject;
  * isActive is used to determine if the object should be removed from the game or kept updated.
  */
 public abstract class GameObject {
+    // Position of the object
     protected double x;
     protected double y;
+
+    // Width and height of the object
     protected int width;
     protected int height;
+
+    // isActive is used to determine if the object is active or not. Inactive objects are removed from the game.
     protected boolean isActive = true;
 
     public GameObject(double x, double y) {
@@ -45,6 +50,7 @@ public abstract class GameObject {
 
     public int getWidth() { return width; }
 
+    // The getImagePath method should be overridden by subclasses to return the path to the image of the object.
     public abstract String getImagePath();
 
     // The intercepts method checks if the object is intercepting another object.

@@ -6,11 +6,13 @@ import com.example.tankgame.gameobject.tank.Tank;
 
 public class Down implements Direction {
 
+    // Move the object down by the given speed + y coordinate
     @Override
     public void move(GameObject object, double speed) {
         object.setY(object.getY() + speed);
     }
 
+    // Return the image path of the object based on instance of the object
     @Override
     public String getImagePath(GameObject object) {
         if(object instanceof Tank)
@@ -20,11 +22,13 @@ public class Down implements Direction {
         return null;
     }
 
+    // Return the x coordinate offset, currently used only for tank to have missiles come out of the nozzle of tank
     @Override
     public int getOffsetX() {
         return 24;
     }
 
+    // Return the y coordinate offset, currently used only for tank to have missiles come out of the nozzle of tank
     @Override
     public int getOffsetY() {
         return 40;

@@ -1,5 +1,9 @@
 package com.example.tankgame.gameobject.obstacle;
 
+/**
+ * This wall is a 50x50 wall that can be placed on the map. It's main purpose is to allow
+ * for greater map customization.
+ */
 public class SquareWall extends Wall {
     public SquareWall(double x, double y) {
         super(x, y);
@@ -8,16 +12,10 @@ public class SquareWall extends Wall {
     }
 
     @Override
-    public void update() {
-
-    }
+    public void update() {}
 
     @Override
-    public String getImagePath() {
-        return "/com/example/tankgame/images/hedge.png";
-    }
+    public String getImagePath() { return "/com/example/tankgame/images/hedge.png"; }
 
-    public void handleCollision() {
-
-    }
+    public void handleCollision() {}
 }

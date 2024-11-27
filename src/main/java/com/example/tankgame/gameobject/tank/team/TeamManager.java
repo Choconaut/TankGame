@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *  Should a container be used to create teams?
+ *  This class manages the teams in the game. It is responsible for creating, removing, and updating teams.
+ *  It also checks if there is only one team left in the game.
+ *
+ *  It utilizes a HashMap to store the teams, where the key is the team name and the value is the team object.
+ *  Currently, the AIDifficulty class does not target multiple teams, so only 2 teams are created in the game.
  */
 public class TeamManager {
     private final Map<String, Team> teams = new HashMap<>();

@@ -22,9 +22,13 @@ public class MediumDifficulty extends AIDifficulty {
 
         for (Tank targetTank : targetTanks.getTeam()) {
             while (targetTank.isActive()) {
-                chase(AITank, targetTank);
                 fireMissile(AITank, targetTank);
             }
         }
+    }
+
+    @Override
+    public void fireMissile(Tank AITank, Tank targetTank) {
+
     }
 }

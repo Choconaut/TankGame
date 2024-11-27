@@ -10,7 +10,7 @@ import com.example.tankgame.gameobject.tank.team.Team;
  *
  * There is no standard limit on the number of parameters you can specify in Java, but according to "Code Complete 2",
  * you should limit the amount of parameters to about 7, anymore and it will have a negative effect on the readability of your code.
- * Therefore, AITank will have only 5 parameters because it is still readable. :)
+ * Therefore, AITank will have only 6 parameters because it is still readable. :)
  */
 public class AITank extends Tank {
     private AIDifficulty AIDifficulty;

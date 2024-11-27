@@ -48,7 +48,7 @@ public class GameObjectFactory {
      * @param x, the x and y coordinates of the missile
      * @param y
      * @param direction, direction of the tank
-     * @return, a new missile object
+     * @return a new missile object
      */
     public static Missile createBasicMissile(double x, double y, Direction direction) {
         Missile missile = new BasicMissile(x, y, direction);
@@ -60,8 +60,6 @@ public class GameObjectFactory {
         return new Explosion(x, y);
     }
 
-    public SquareWall createSquareWall(double x, double y) {
-        return new SquareWall(x, y);
-    }
+    public SquareWall createSquareWall(double x, double y) { return new SquareWall(x, y); }
 }
 
