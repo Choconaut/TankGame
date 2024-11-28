@@ -35,6 +35,6 @@ To run this project, you need the following
   ```
 
 ## Project Structure
-![Tank Game-2024-11-28-002447](https://github.com/user-attachments/assets/bc2bd0b4-c03f-4206-a747-7f072855f9a4)
+![Tank Game-2024-11-28-013912](https://github.com/user-attachments/assets/9a53a2cd-a80c-487c-b3bc-a93d666f994f)
 
 
