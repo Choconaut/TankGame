@@ -16,6 +16,9 @@ public class GameObjectManager {
     private final Map<GameObject, GameObjectRenderer> renderers = new HashMap<>();
     private final Group root;
 
+    private final List<GameObject> toAdd = new ArrayList<>();
+
+
     /**
      * Constructs a GameObjectManager with the specified root group for rendering.
      *
@@ -53,8 +56,11 @@ public class GameObjectManager {
         // List to collect inactive objects
         List<GameObject> toRemove = new ArrayList<>();
 
+        // Make a copy of the gameObjects list to avoid ConcurrentModificationException
+        List<GameObject> gameObjectsCopy = new ArrayList<>(gameObjects);
+
         // Update game objects and their renderers
-        for (GameObject obj : gameObjects) {
+        for (GameObject obj : gameObjectsCopy) {
             if (obj.isActive()) {
                 obj.update();
                 renderers.get(obj).update();
@@ -68,12 +74,23 @@ public class GameObjectManager {
             removeGameObject(obj); // Automatically removes renderers
             System.out.println("Removing inactive object: " + obj);
         }
+
+        // Add all objects scheduled for addition
+        for (GameObject obj : toAdd) {
+            addGameObject(obj);
+        }
+        toAdd.clear(); // Clear the list after addition
     }
+
 
     /**
      * Returns a list of all game objects managed by this manager.
      */
     public List<GameObject> getGameObjects() {
         return new ArrayList<>(gameObjects);
+    }
+
+    public void scheduleAddition(GameObject gameObject) {
+        toAdd.add(gameObject);
     }
 }

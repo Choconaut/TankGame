@@ -99,7 +99,7 @@ public abstract class Tank extends GameObject {
      * Perhaps a bad implementation since Tank now knows about every single gameObject in the gameObjectContainer.
      */
     public void fire() {
-        gameObjectManager.addGameObject(GameObjectFactory.createBasicMissile(
+        gameObjectManager.scheduleAddition(GameObjectFactory.createBasicMissile(
                 this.getX() + this.state.getOffsetX(),
                 this.getY() + this.state.getOffsetY(),
                 this.getState()));

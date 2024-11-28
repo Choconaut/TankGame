@@ -31,6 +31,6 @@ public class Up implements Direction {
     // Return the y coordinate offset, currently used only for tank to have missiles come out of the nozzle of tank
     @Override
     public int getOffsetY() {
-        return 0;
+        return -10;
     }
 }

@@ -145,11 +145,11 @@ public class TankApp extends Application {
                 collisionDetector.detectCollision(gameObjectManager.getGameObjects());
                 teamManager.updateTeams();
 
-                teamManager.getTeam("Allies").updateActiveTankCount();
-                teamManager.getTeam("Axis").updateActiveTankCount();
-
                 if (teamManager.checkLastTeamStanding()) {
                     stop();
+                } else {
+                    teamManager.getTeam("Allies").updateActiveTankCount();
+                    teamManager.getTeam("Axis").updateActiveTankCount();
                 }
             }
         };
@@ -157,6 +157,7 @@ public class TankApp extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println("Game is starting...");
         launch(args);
     }
 }

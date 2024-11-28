@@ -25,7 +25,7 @@ public class Left implements Direction {
     // Return the x coordinate offset, currently used only for tank to have missiles come out of the nozzle of tank
     @Override
     public int getOffsetX() {
-        return 0;
+        return -10;
     }
 
     // Return the y coordinate offset, currently used only for tank to have missiles come out of the nozzle of tank
