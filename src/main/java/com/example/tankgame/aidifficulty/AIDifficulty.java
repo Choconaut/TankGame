@@ -14,7 +14,7 @@ import java.util.List;
  * Rules:
  * The AI tank will always target the closest enemy tank.
  * The AI tank will attempt to align itself with the target.
- * The AI tank will attempt to maintain a 75px distance on the vertical axis before moving horizontally to align closer.
+ * The AI tank will attempt to maintain a 150px distance on the vertical axis before moving horizontally to align closer.
  * The AI tank will prioritize vertical alignment over horizontal alignment for movement.
  * If the AI tank has line of sight to the target, it will attempt to fire a missile at the target.
  * ---------------------------------------------------------------------------------------------------------------------
@@ -60,8 +60,8 @@ public class AIDifficulty {
             boolean prioritizeVertical = Math.abs(deltaY) > 75;
 
             if (prioritizeVertical) {
-                // Attempt to maintain a 75px distance on the vertical axis
-                if (Math.abs(deltaY) > 75) {
+                // Attempt to maintain a 150px distance on the vertical axis
+                if (Math.abs(deltaY) > 150) {
                     if (deltaY > 0) {
                         AITank.setState(new Down());
                     } else {
@@ -76,8 +76,8 @@ public class AIDifficulty {
                     }
                 }
             } else {
-                // Attempt to maintain a 75px distance on the horizontal axis
-                if (Math.abs(deltaX) > 75) {
+                // Attempt to maintain a 150px distance on the horizontal axis
+                if (Math.abs(deltaX) > 150) {
                     if (deltaX > 0) {
                         AITank.setState(new Right());
                     } else {

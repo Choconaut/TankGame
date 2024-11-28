@@ -1,5 +1,7 @@
 package com.example.tankgame.gameobject.obstacle;
 
+import com.example.tankgame.gameobject.GameObject;
+
 /**
  * The InvisibleWall class that represents an invisible wall object in the game.
  * This wall can have its width and height set to any value.
@@ -17,5 +19,8 @@ public class InvisibleWall extends Obstacle {
     @Override
     public String getImagePath() { return null; }
 
-    public void handleCollision() {}
+    // Invisible walls are god objects and do not interact with other objects
+    @Override
+    public void handleCollision(GameObject other) {}
+
 }

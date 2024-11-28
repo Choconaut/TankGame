@@ -23,7 +23,7 @@ public abstract class GameObject {
         this.y = y;
     }
 
-    public abstract void update();
+    protected abstract void update();
 
     /**
      * Getters and Setters
@@ -48,10 +48,8 @@ public abstract class GameObject {
 
     public boolean isActive() { return this.isActive; }
 
-    public int getWidth() { return width; }
-
     // The getImagePath method should be overridden by subclasses to return the path to the image of the object.
-    public abstract String getImagePath();
+    protected abstract String getImagePath();
 
     // The intercepts method checks if the object is intercepting another object.
     public boolean intercepts(GameObject otherObject) {

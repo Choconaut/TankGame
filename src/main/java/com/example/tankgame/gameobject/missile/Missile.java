@@ -12,7 +12,7 @@ import com.example.tankgame.gameobject.tank.Tank;
  * Different types of missiles can be created by extending this class.
  *
  * The default stats for a missile are:
- * - Damage: 20
+ * - Damage: 30
  * - Speed: 10.0
  * - Width: 10
  * - Height: 10
@@ -29,7 +29,7 @@ public abstract class Missile extends GameObject {
      */
     public Missile(double x, double y) {
         super(x, y);
-        this.damage = 20;
+        this.damage = 30;
         this.speed = 10.0;
         this.width = 10;
         this.height = 10; //different sizes based on direction
@@ -40,8 +40,9 @@ public abstract class Missile extends GameObject {
         this.move();
 
         // Remove if the missile is out of bounds
-        if (this.x < 0 || this.x > GameConstants.gameWidth ||
-                this.y < 0 || this.y > GameConstants.gameHeight) {
+        //20 is because of a UI bug where the screen "bounces" when the missile goes out of bounds
+        if (this.x < 10 || this.x > GameConstants.gameWidth - 20 ||
+                this.y < 10 || this.y > GameConstants.gameHeight) {
             this.setActive(false);
         }
         // Other missile-specific logic
@@ -58,10 +59,6 @@ public abstract class Missile extends GameObject {
 
     public Direction getState() { return state; }
 
-    public double getSpeed() {
-        return speed;
-    }
-
     public int getDamage() {
         return damage;
     }
@@ -74,17 +71,6 @@ public abstract class Missile extends GameObject {
     // Handle collisions with other game objects, calls the appropriate method based on the object type
     @Override
     public void handleCollision(GameObject other) {
-        if (other instanceof Tank) {
-            this.collideWithTank((Tank) other);
-        }
         this.setActive(false);
     }
-
-    // Handle collision with a tank, sets the missile to false since there's no need to keep it active
-    public void collideWithTank(Tank tank) {
-        tank.setHealth(tank.getHealth() - this.damage);
-        this.setActive(false);
-    }
-
-
 }

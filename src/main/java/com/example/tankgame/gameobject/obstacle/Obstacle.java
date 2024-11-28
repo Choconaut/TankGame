@@ -7,9 +7,18 @@ import com.example.tankgame.gameobject.GameObject;
  * Different types of obstacles can be created by extending this class.
  */
 public abstract class Obstacle extends GameObject {
+    int health;
+
     public Obstacle(double x, double y) {
         super(x, y);
     }
 
     public abstract String getImagePath();
+
+    public abstract void handleCollision(GameObject other);
+
+    public int getHealth() { return health; }
+
+    public void setHealth(int health) { this.health = health; }
+
 }

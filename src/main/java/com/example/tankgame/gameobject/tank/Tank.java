@@ -140,8 +140,9 @@ public abstract class Tank extends GameObject {
         this.setHealth(this.getHealth() - missile.getDamage());
         System.out.println("Tank hit! Health: " + this.getHealth());
 
+        // If tank's hp is less than or equal to 0, mark tank as inactive and create an explosion
         if (this.getHealth() <= 0) {
-            this.setActive(false); // Mark tank as inactive
+            this.setActive(false);
             gameObjectManager.addGameObject(GameObjectFactory.createExplosion(this.getX(), this.getY()));
         }
     }

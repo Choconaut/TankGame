@@ -100,7 +100,9 @@ public class TankApp extends Application {
         // PowerUps
         gameObjectManager.addGameObject(gameObjectFactory.createMedPack(1103, 660));
 
-        // Walls
+        // Obstacles
+
+        gameObjectManager.addGameObject(gameObjectFactory.createBoulder(500, 250));
 
         // Wall for left-side of stairway
         gameObjectManager.addGameObject(gameObjectFactory.createInvisibleWall(0, 525, 315, 50));

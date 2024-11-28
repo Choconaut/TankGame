@@ -6,7 +6,7 @@ import com.example.tankgame.gameobject.explosion.Explosion;
 import com.example.tankgame.gameobject.missile.BasicMissile;
 import com.example.tankgame.gameobject.missile.Missile;
 import com.example.tankgame.gameobject.obstacle.InvisibleWall;
-import com.example.tankgame.gameobject.obstacle.Tree;
+import com.example.tankgame.gameobject.obstacle.Boulder;
 import com.example.tankgame.gameobject.powerup.MedPack;
 import com.example.tankgame.gameobject.tank.AITank;
 import com.example.tankgame.gameobject.tank.PlayerTank;
@@ -61,7 +61,7 @@ public class GameObjectFactory {
         return new Explosion(x, y);
     }
 
-    public Tree createTree(double x, double y) { return new Tree(x, y); }
+    public Boulder createBoulder(double x, double y) { return new Boulder(x, y); }
 
     public InvisibleWall createInvisibleWall(double x, double y, int width, int height) { return new InvisibleWall(x, y, width, height); }
 }
