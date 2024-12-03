@@ -28,8 +28,9 @@ To run this project, you need:
 
 ## Setup Instructions
 1. Download the JAR file
-2. Navigate to the directory where TankGame.jar is located
-3. If using terminal/command prompt, execute the following:
+   Get the latest version of `TankGame.jar` from the [Releases page](https://github.com/Choconaut/TankGame/releases/tag/v1.0).
+3. Navigate to the directory where TankGame.jar is located
+4. If using terminal/command prompt, execute the following:
 ```
 java -jar TankGame.jar
 ```
