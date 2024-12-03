@@ -9,7 +9,7 @@ A 2D tank game developed in Java using JavaFX to demonstrate OOP design principl
 - [Project Structure](#project-structure)
 
 ## Features
-- Player-Controlled Tank: Navigate through the battlfield and engage enemy tanks.
+- Player-Controlled Tank: Navigate through the battlefield and engage enemy tanks.
 - AI-Tanks: AI opponents that track and attack the player and allied tanks.
 - Obstacle Interaction: Walls and obstacles that tanks and missiles cannot pass through. 
 - Power-Ups: Collectible items like medpacks to restore currentHealth.
@@ -27,16 +27,16 @@ To run this project, you need:
 - **Java Runtime Environment (JRE) or Java Development Kit(JDK) 21 or higher**
 
 ## Setup Instructions
-1. Download the JAR file
+1. Download the JAR file.
    Get the latest version of `TankGame.jar` from the [Releases page](https://github.com/Choconaut/TankGame/releases/tag/v1.0).
-3. Navigate to the directory where TankGame.jar is located
+3. Navigate to the directory where TankGame.jar is located.
 4. If using terminal/command prompt, execute the following:
 ```
 java -jar TankGame.jar
 ```
 
 **Notes:**
-- Ensure that ```java``` is accessible in your system's PATH if you're using the terminal/command prompt
+- Ensure that ```java``` is accessible in your system's PATH if you're using the terminal/command prompt.
 
 ## Project Structure
 **UML Diagram**
