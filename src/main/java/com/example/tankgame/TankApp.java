@@ -38,7 +38,7 @@ public class TankApp extends Application {
         // Place the game area in the center of the BorderPane
         root.setCenter(gameArea);
 
-        Scene scene = new Scene(root, 1400, 800);
+        Scene scene = new Scene(root, 1450, 800);
 
         // Update GameConstants with actual scene size
         GameConstants.gameWidth = 1200;
@@ -89,13 +89,13 @@ public class TankApp extends Application {
                 1130, 350,
                 teamManager.getTeam("Axis"),
                 teamManager.getTeam("Allies"),
-                new MediumDifficulty()));
+                new HardDifficulty()));
 
         gameObjectManager.addGameObject(gameObjectFactory.createAITank(
-                1050, 450,
+                1150, 450,
                 teamManager.getTeam("Axis"),
                 teamManager.getTeam("Allies"),
-                new HardDifficulty()));
+                new MediumDifficulty()));
 
         // PowerUps
         gameObjectManager.addGameObject(gameObjectFactory.createMedPack(1103, 660));

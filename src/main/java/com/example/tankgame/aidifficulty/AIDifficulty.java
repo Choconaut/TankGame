@@ -98,7 +98,7 @@ public class AIDifficulty {
 
     // Check if the AI tank has line of sight to the target tank
     private boolean hasLineOfSight(Tank AITank, Tank targetTank) {
-        double tolerance = 5.0; // Adjust as needed
+        double tolerance = 20.0; // Adjust as needed
 
         // Check horizontal alignment
         boolean alignedHorizontally = Math.abs(AITank.getY() - targetTank.getY()) < tolerance;

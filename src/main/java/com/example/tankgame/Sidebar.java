@@ -2,98 +2,146 @@ package com.example.tankgame;
 
 import com.example.tankgame.gameobject.tank.PlayerTank;
 import com.example.tankgame.gameobject.tank.team.Team;
+import eu.hansolo.tilesfx.Tile;
+import eu.hansolo.tilesfx.TileBuilder;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import javafx.geometry.Insets;
+import java.util.Objects;
 
+/**
+ *  This class represents the Sidebar of the game which displays the
+ *  player's health, number of enemies and allies.
+ */
 public class Sidebar extends VBox {
-    private Label hpLabel;
-    private ProgressBar hpBar;
-    Label enemyCountLabel;
-    Label allyCountLabel;
+    private Tile healthTile;
+    private HBox enemyBox;
+    private HBox allyBox;
+
+    private final Image enemyTankImage;
+    private final Image allyTankImage;
+
+    private final int maxTankIcons = 10; // Maximum number of tank icons to display
 
     public Sidebar(PlayerTank playerTank, Team allies, Team axis) {
-        super(20); //Spacing between elements
+        super(20);
         this.setPadding(new Insets(15));
-        this.setStyle("-fx-background-color: #333;"); // Background color for the sidebar
-        this.setPrefWidth(200);
+        this.setStyle("-fx-background-color: #333;");
+        this.setPrefWidth(250);
 
-        // Initialize UI components
+        // Load images
+        enemyTankImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/tankgame/images/bTankU.png")));
+        allyTankImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/com/example/tankgame/images/bTankU.png")));
+
         initializeComponents();
-
-        // Bind properties to update UI components
         bindProperties(playerTank, allies, axis);
     }
 
     private void initializeComponents() {
-        // HP Label and ProgressBar
-        Label hpTitle = new Label("Health");
-        hpTitle.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
+        healthTile = TileBuilder.create()
+                .skinType(Tile.SkinType.BAR_GAUGE)
+                .title("Health")
+                .textSize(Tile.TextSize.BIGGER)
+                .unit("%")
+                .maxValue(100)
+                .threshold(40) // Threshold for color change
+                .barColor(Tile.GREEN)
+                .thresholdColor(Tile.RED)
+                .animated(true)
+                .prefSize(100,200)
+                .build();
 
-        hpLabel = new Label("100 / 100");
-        hpLabel.setStyle("-fx-text-fill: white;");
+        // Enemy Tank Images
+        Label enemyTitle = new Label("Enemies");
+        enemyTitle.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
+        enemyBox = new HBox(5);
+        enemyBox.setAlignment(Pos.CENTER_LEFT);
 
-        hpBar = new ProgressBar(1.0);
-        hpBar.setPrefWidth(150);
+        VBox enemyBoxContainer = new VBox(5, enemyTitle, enemyBox);
 
-        VBox hpBox = new VBox(5, hpTitle, hpBar, hpLabel);
+        // Ally Tank Images
+        Label allyTitle = new Label("Allies");
+        allyTitle.setStyle("-fx-text-fill: white; -fx-font-size: 16px;");
+        allyBox = new HBox(5);
+        allyBox.setAlignment(Pos.CENTER_LEFT);
 
-        // Enemies Label
-        enemyCountLabel = new Label("Enemies: 0");
-        enemyCountLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+        VBox allyBoxContainer = new VBox(5, allyTitle, allyBox);
 
-        // Allies Label
-        allyCountLabel = new Label("Allies: 0");
-        allyCountLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
-
-        // Add elements to sidebar
-        this.getChildren().addAll(hpBox, enemyCountLabel, allyCountLabel);
+        // Add components to Sidebar
+        this.getChildren().addAll(healthTile, enemyBoxContainer, allyBoxContainer);
     }
 
-    // Methods to update UI components
-    public void updateHealth(int currentHealth, int maxHealth) {
-        hpLabel.setText(currentHealth + " / " + maxHealth);
-        hpBar.setProgress((double) currentHealth / maxHealth);
-    }
-
-    public void updateEnemies(int enemyCount) {
-        enemyCountLabel.setText("Enemies: " + enemyCount);
-    }
-
-    public void updateAllies(int allyCount) {
-        allyCountLabel.setText("Allies: " + allyCount);
-    }
-
+    // Bind properties of player tank and teams to the Sidebar components
     private void bindProperties(PlayerTank playerTank, Team alliesTeam, Team enemiesTeam) {
-        // Bind health
+        // Update Health Tile
         playerTank.healthProperty().addListener((observable, oldValue, newValue) -> {
-            int currentHealth = newValue.intValue();
-            int maxHealth = 100; // Assuming max health is 100
-            updateHealth(currentHealth, maxHealth);
+            double healthPercentage = (newValue.doubleValue() / playerTank.getMaxHealth()) * 100;
+            healthTile.setValue(healthPercentage);
         });
 
         // Set initial health
-        updateHealth(playerTank.getHealth(), 100);
+        healthTile.setValue((playerTank.getCurrentHealth() / (double) playerTank.getMaxHealth()) * 100);
 
-        // Bind allies count
+        // Update Enemy Tank Images
+        enemiesTeam.activeTankCount().addListener((observable, oldValue, newValue) -> {
+            updateEnemyIcons(newValue.intValue());
+        });
+
+        // Set initial enemy count
+        updateEnemyIcons(enemiesTeam.getActiveTankCount());
+
+        // Update Ally Tank Images
         alliesTeam.activeTankCount().addListener((observable, oldValue, newValue) -> {
             int allyCount = newValue.intValue() - 1; // Exclude player tank
-            updateAllies(allyCount);
+            updateAllyIcons(allyCount);
         });
 
-        // Set initial allies count
-        updateAllies(alliesTeam.getActiveTankCount() - 1);
-
-        // Bind enemies count
-        enemiesTeam.activeTankCount().addListener((observable, oldValue, newValue) -> {
-            int enemyCount = newValue.intValue();
-            updateEnemies(enemyCount);
-        });
-
-        // Set initial enemies count
-        updateEnemies(enemiesTeam.getActiveTankCount());
+        // Set initial ally count
+        updateAllyIcons(alliesTeam.getActiveTankCount() - 1);
     }
 
+    private void updateEnemyIcons(int enemyCount) {
+        enemyBox.getChildren().clear();
+
+        int iconsToShow = Math.min(enemyCount, maxTankIcons);
+
+        for (int i = 0; i < iconsToShow; i++) {
+            ImageView tankView = new ImageView(enemyTankImage);
+            tankView.setFitWidth(30);
+            tankView.setFitHeight(30);
+            enemyBox.getChildren().add(tankView);
+        }
+
+        // Add label for additional enemies if any
+        if (enemyCount > maxTankIcons) {
+            Label moreLabel = new Label("+" + (enemyCount - maxTankIcons));
+            moreLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+            enemyBox.getChildren().add(moreLabel);
+        }
+    }
+
+    private void updateAllyIcons(int allyCount) {
+        allyBox.getChildren().clear();
+
+        int iconsToShow = Math.min(allyCount, maxTankIcons);
+
+        for (int i = 0; i < iconsToShow; i++) {
+            ImageView tankView = new ImageView(allyTankImage);
+            tankView.setFitWidth(30);
+            tankView.setFitHeight(30);
+            allyBox.getChildren().add(tankView);
+        }
+
+        // Add label for additional allies if any
+        if (allyCount > maxTankIcons) {
+            Label moreLabel = new Label("+" + (allyCount - maxTankIcons));
+            moreLabel.setStyle("-fx-text-fill: white; -fx-font-size: 14px;");
+            allyBox.getChildren().add(moreLabel);
+        }
+    }
 }

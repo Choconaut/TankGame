@@ -1,4 +1,4 @@
-import com.example.tankgame.TankApp;
+package com.example.tankgame;
 
 public class TankApplication {
     public static void main(String[] args) {

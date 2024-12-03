@@ -12,19 +12,20 @@ import com.example.tankgame.gameobject.tank.team.Team;
 
 /**
  * This class represents a tank in the game.
- * It has health, speed, and a state that determines its direction.
+ * It has currentHealth, speed, and a state that determines its direction.
  * It can move, fire missiles, and handle collisions with other game objects.
  * This class will be extended by different types of tanks in the game.
  * <p>
  * The default stats of a tank are:
- * - health: 100
+ * - currentHealth: 100
  * - speed: 2.5, moves 2.5 pixels per frame
  * - width: 50, the tank's image width
  * - height: 50, the tank's image height
  */
 public abstract class Tank extends GameObject {
     protected final GameObjectManager gameObjectManager;
-    protected int health;
+    protected int maxHealth = 100;
+    protected int currentHealth = maxHealth;
     protected double speed;
     protected Direction state;
     protected Team team;
@@ -35,7 +36,6 @@ public abstract class Tank extends GameObject {
         super(x, y);
         this.gameObjectManager = gameObjectManager;
         this.team = team;
-        this.health = 100;
         this.speed = 2.5;
         this.width = 50;
         this.height = 50;
@@ -81,9 +81,11 @@ public abstract class Tank extends GameObject {
         return speed;
     }
 
-    public int getHealth() { return health; }
+    public int getCurrentHealth() { return currentHealth; }
 
-    public void setHealth(int health) { this.health = health; }
+    public void setCurrentHealth(int currentHealth) { this.currentHealth = currentHealth; }
+
+    public int getMaxHealth() { return maxHealth; }
 
     public GameObjectManager getGameObjectManager() {
         return gameObjectManager;
@@ -132,22 +134,22 @@ public abstract class Tank extends GameObject {
     }
 
     /**
-     * Handle a collision with a missile, reduces the tank's health by the missile's damage
-     * and marks the tank as inactive if its health is less than or equal to 0. When
+     * Handle a collision with a missile, reduces the tank's currentHealth by the missile's damage
+     * and marks the tank as inactive if its currentHealth is less than or equal to 0. When
      * a tank is marked as inactive, it will be removed from the game.
      */
     public void collideWithMissile(Missile missile) {
-        this.setHealth(this.getHealth() - missile.getDamage());
-        System.out.println("Tank hit! Health: " + this.getHealth());
+        this.setCurrentHealth(this.getCurrentHealth() - missile.getDamage());
+        System.out.println("Tank hit! Health: " + this.getCurrentHealth());
 
         // If tank's hp is less than or equal to 0, mark tank as inactive and create an explosion
-        if (this.getHealth() <= 0) {
+        if (this.getCurrentHealth() <= 0) {
             this.setActive(false);
             gameObjectManager.addGameObject(GameObjectFactory.createExplosion(this.getX(), this.getY()));
         }
     }
 
-    // Handle a collision with a med pack, applies a health boost to the tank
+    // Handle a collision with a med pack, applies a currentHealth boost to the tank
     public void collideWithMedPack(MedPack medPack) {
         medPack.applyEffect(this);
         medPack.setActive(false);

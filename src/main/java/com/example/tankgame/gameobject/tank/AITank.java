@@ -20,7 +20,8 @@ public class AITank extends Tank {
     public AITank(double x, double y, Team team, Team targetTanks, AIDifficulty AIDifficulty, GameObjectManager gameObjectManager) {
         super(x, y, team , gameObjectManager);
         this.state = new Left(); // Default direction is down
-        this.health = 90;
+        this.maxHealth = 90;
+        this.currentHealth = 90;
         this.AIDifficulty = AIDifficulty;
         this.targetTanks = targetTanks;
     }

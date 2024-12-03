@@ -30,7 +30,7 @@ public class Boulder extends Obstacle {
 
     private void collideWithMissile(Missile missile) {
         this.setHealth(this.getHealth() - missile.getDamage());
-        System.out.println("Boulder health: " + this.getHealth());
+        System.out.println("Boulder currentHealth: " + this.getHealth());
 
         if (this.getHealth() <= 0) {
             this.setActive(false);

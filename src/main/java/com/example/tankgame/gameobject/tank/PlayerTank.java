@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 public class PlayerTank extends Tank {
     private long lastFireTime = System.currentTimeMillis();
-    // Used to bind health to the UI
+    // Used to bind currentHealth to the UI
     private final IntegerProperty health = new SimpleIntegerProperty(100);
 
     public PlayerTank(double x, double y, Team team, GameObjectManager gameObjectManager) {
@@ -23,9 +23,9 @@ public class PlayerTank extends Tank {
     }
 
     @Override
-    public void setHealth(int health) {
-        super.setHealth(health);
-        this.health.set(health);
+    public void setCurrentHealth(int currentHealth) {
+        super.setCurrentHealth(currentHealth);
+        this.health.set(currentHealth);
     }
 
     public IntegerProperty healthProperty() { return health; }

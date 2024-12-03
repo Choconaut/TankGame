@@ -12,7 +12,7 @@ A 2D tank game developed in Java using JavaFX to demonstrate OOP design principl
 - Player-Controlled Tank: Navigate through the battlfield and engage enemy tanks.
 - AI-Tanks: AI opponents that track and attack the player and allied tanks.
 - Obstacle Interaction: Walls and obstacles that tanks and missiles cannot pass through. 
-- Power-Ups: Collectible items like medpacks to restore health.
+- Power-Ups: Collectible items like medpacks to restore currentHealth.
 - Collision Detection: Collision handling between tanks, obstacles, missiles, and power ups.
 
 ## Gameplay
